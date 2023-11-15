@@ -1,0 +1,27 @@
+.Collapsible {
+}
+
+.Collapsible__trigger {
+    color: #4A0CF9;
+    padding: 10px;
+    font-size: 18px;
+    width: 100%;
+    background: #d5c9ff40;
+    cursor: pointer;
+}
+
+.Collapsible__trigger::before {
+    padding: 10px 10px 10px 0;
+    font-family: "Font Awesome 5 Free", sans-serif;
+    font-weight: 900;
+    content: "\f067";
+}
+
+
+.Collapsible__trigger.is-open::before {
+    content: "\f068";
+}
+
+.Collapsible__contentInner {
+    padding: 10px 0;
+}
