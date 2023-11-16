@@ -44,8 +44,24 @@ const Feed: React.FC = () => {
                 </div>
               </div>
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common mt-4">
-                <div className="middle-content h-auto w-100 py-4 d-flex justify-content-center align-itmes-center">
-                  Start Post
+                <div className="middle-content h-auto w-100 p-2 d-flex justify-content-center align-itmes-center">
+                  <div className="w-100 d-flex justify-content-center align-itmes-center post-write">
+                    <div className="row w-100">
+                      <div className="col-md-2 d-flex justify-content-center align-itmes-center px-0">
+                        <img src={Dp} alt="" className="search-dp" />
+                      </div>
+                      <div className="col-md-9 d-flex justify-content-center align-items-center px-0">
+                        <input
+                          type="text"
+                          className="rounded-input w-100"
+                          placeholder="Start a post..."
+                          onChange={(e) => {
+                            console.log(e.target.value);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common mt-4">

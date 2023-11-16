@@ -2871,7 +2871,7 @@ color: white !important;
   width: 100vw;
   height: calc(100vh - 70px);
   /* background-color: #77ff00; */
-  background-color: #F0FFE3;
+  background-color: #222e17;
 }
 
 .feed-component-common{
@@ -2886,14 +2886,13 @@ color: white !important;
   height: 250px !important;
 }
 
-
 .cover-img{
   width: 100%;
   height: 200px;
  }
 .dets{
   width: 100%;
-    height: 120px;
+    height: 160px;
  }
 
  .rounded-corners{
@@ -2913,7 +2912,7 @@ color: white !important;
 
 .profile-img {
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 160px;
@@ -2922,4 +2921,37 @@ color: white !important;
 }
 .profile-img .dp {
   border-radius: 50%;
+}
+
+
+
+.search-dp{
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+
+}
+
+.rounded-input {
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  padding: 10px 10px 10px 20px;
+  outline: none;
+  height: 85%;
+
+}
+
+/* Optional: Add some styling for better visual appeal */
+.rounded-input:focus {
+  border-color: dodgerblue;
+  box-shadow: 0 0 5px rgba(30, 144, 255, 0.8);
+}
+
+.px-0{
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+
+* {
+  color: #4d4d4d !important;
 }
