@@ -2869,7 +2869,8 @@ color: white !important;
   top: 70px;
   padding-top: 10px;
   width: 100vw;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 70px);
+  /* background-color: #77ff00; */
   background-color: #F0FFE3;
 }
 
@@ -2883,4 +2884,42 @@ color: white !important;
 
 .right-col-feed{
   height: 250px !important;
+}
+
+
+.cover-img{
+  width: 100%;
+  height: 200px;
+ }
+.dets{
+  width: 100%;
+    height: 120px;
+ }
+
+ .rounded-corners{
+    border-radius: 12px;
+ }
+
+ .rounded-corners-top{
+  border-radius: 12px 12px 0px 0px;
+ }
+ .rounded-corners-bottom{
+  border-radius: 0 0 12px 12px;
+ }
+
+ .pos-rel{
+    position: relative;
+ }
+
+.profile-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+}
+.profile-img .dp {
+  border-radius: 50%;
 }
