@@ -84,7 +84,6 @@ const App: React.FC = () => {
                   </Switch>
                 </Router>
               </div>
-              <Footer />
             </div>
           </Auth>
         </Route>

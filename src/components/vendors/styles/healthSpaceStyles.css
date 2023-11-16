@@ -2848,3 +2848,39 @@ color: white !important;
   color: blue;
   text-decoration: underline;
 }
+
+.mt-5rem{
+  margin-top: 5rem !important;
+}
+
+.feed-container{
+  width: 100%;
+  max-height: 96vh;
+}
+
+
+.px-14rem{
+  padding-left: 14rem !important;
+  padding-right: 14rem !important;
+}
+
+.full-screen{
+  position: absolute;
+  top: 70px;
+  padding-top: 10px;
+  width: 100vw;
+  height: calc(100vh - 80px);
+  background-color: #F0FFE3;
+}
+
+.feed-component-common{
+  border: #5252521a 1px solid;
+}
+
+.left-col-feed{
+  height: 500px !important;
+}
+
+.right-col-feed{
+  height: 250px !important;
+}
