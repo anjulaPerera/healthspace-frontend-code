@@ -5,7 +5,7 @@ import Crick1 from "../../vendors/images/crick1.png";
 import UserContext from "../../../context/UserContext";
 import { NavLink } from "react-router-dom";
 
-const MainDashboard2: React.FC = () => {
+const Feed: React.FC = () => {
   const [user] = useContext(UserContext);
 
   return (
@@ -149,4 +149,4 @@ const MainDashboard2: React.FC = () => {
   );
 };
 
-export default MainDashboard2;
+export default Feed;

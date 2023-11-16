@@ -39,7 +39,7 @@ const AdminSideBar: React.FC = () => {
           to={
             user?.userType === Role.SUPER_ADMIN
               ? `/admin/user-management`
-              : `/admin/dashboard`
+              : `/hs/home`
           }
         >
           <img src={Logo} className="light-logo" alt="cricView360_logo" />

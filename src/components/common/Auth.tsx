@@ -43,7 +43,7 @@ const Auth: React.FC = ({ children }) => {
             setUser(res.data);
             res.data?.userType === "SUPER_ADMIN"
               ? history.push(`/admin/user-management`)
-              : history.push(`/user/dashboard`);
+              : history.push(`/hs/home`);
             if (res.data?.userStatus === "ACTIVE") {
               setUserRequestState(RequestState.SUCCESS);
             }

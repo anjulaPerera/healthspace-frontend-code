@@ -24,6 +24,7 @@ import UserProfile from "./Admin/UserManagement/Profile";
 import SignUp from "./common/SignUp";
 import UpgradePlan from "./Admin/UserManagement/UpgradePlan";
 import MainDashboard2 from "./Admin/MainDashboard_new";
+import Feed from "./Admin/MainDashboard_new";
 
 const languages = ["en", "fr"];
 
@@ -71,10 +72,11 @@ const App: React.FC = () => {
                       <VerifyRole allow={[Role.SUPER_ADMIN]}>
                         <SuperAdminRouter />
                       </VerifyRole>
-
-                      <VerifyRole allow={[Role.LEVEL01]}>
+                    </Route>
+                    <Route path="/hs">
+                      {/* <VerifyRole allow={[Role.LEVEL01]}>
                         <DonorRouter />
-                      </VerifyRole>
+                      </VerifyRole> */}
                       <VerifyRole allow={[Role.LEVEL02]}>
                         <PatientRouter />
                       </VerifyRole>
@@ -122,56 +124,34 @@ const SuperAdminRouter: React.FC = () => {
     </ContentLayout>
   );
 };
-const DonorRouter: React.FC = () => {
-  return (
-    <ContentLayout>
-      <Router>
-        <Route
-          path={[]}
-          exact
-          render={() => (
-            <>
-              <NavBar />
-              <SidePane>
-                <AdminSideBar />
-              </SidePane>
-            </>
-          )}
-        />
-        <Content>
-          <Switch>
-            <Route path={RouteName.ADMIN_MAIN_DASHBOARD} exact>
-              <MainDashboard2 />
-            </Route>
-
-            <Route path={RouteName.ADMIN_PROFILE}>
-              <UserProfile />
-            </Route>
-            <Route path="*">
-              <NotFound />
-            </Route>
-          </Switch>
-        </Content>
-      </Router>
-    </ContentLayout>
-  );
-};
+// const DonorRouter: React.FC = () => {
+//   return (
+//     <ContentLayout>
+//       <Router>
+//         <Content>
+//           <Switch>
+//             <Route>
+//               <NavBar />
+//             </Route>
+//             <Route path={RouteName.ADMIN_MAIN_DASHBOARD} exact>
+//               <Feed />
+//             </Route>
+//             <Route path="*">
+//               <NotFound />
+//             </Route>
+//           </Switch>
+//         </Content>
+//       </Router>
+//     </ContentLayout>
+//   );
+// };
 const PatientRouter: React.FC = () => {
   return (
     <ContentLayout>
       <Router>
-        <Route
-          path={[]}
-          exact
-          render={() => (
-            <>
-              <NavBar />
-              <SidePane>
-                <AdminSideBar />
-              </SidePane>
-            </>
-          )}
-        />
+        <Route>
+          <NavBar />
+        </Route>
         <Content>
           <Switch>
             <Route path={RouteName.ADMIN_MAIN_DASHBOARD} exact>

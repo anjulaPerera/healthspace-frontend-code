@@ -15,6 +15,7 @@ import { User } from "../../models/User";
 import SilverBadge from "../vendors/images/Silver.svg";
 import GoldBadge from "../vendors/images/Gold.svg";
 import FreeBadge from "../vendors/images/Free.svg";
+import logOut from "../../components/vendors/images/logOut.svg";
 
 const NavBar: React.FC = () => {
   const [user, setUser] = useContext(UserContext);
@@ -35,6 +36,11 @@ const NavBar: React.FC = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+  const logout = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -71,7 +77,15 @@ const NavBar: React.FC = () => {
       </div>
       {user?.userType === Role.SUPER_ADMIN ? null : (
         <div className="header-right d-flex justify-content-between align-items-center flex-wrap">
-          <div className="d-flex justify-content-start align-items-center header-container-left"></div>
+          <div className="d-flex justify-content-start align-items-center header-container-left">
+            <div
+              onClick={logout}
+              className="dropdown-toggle selected-side no-arrow cursor-p"
+            >
+              <img src={logOut} alt="" className="micon" />
+              <span className="mtext mt-1">Logout</span>
+            </div>
+          </div>
           <div className="d-flex justify-content-start align-items-center">
             <span className="head-tournament-list user-name">
               {user?.packageBought}{" "}
