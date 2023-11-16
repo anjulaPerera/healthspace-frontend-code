@@ -2870,12 +2870,12 @@ color: white !important;
   padding-top: 10px;
   width: 100vw;
   height: calc(100vh - 70px);
-  /* background-color: #77ff00; */
   background-color: #222e17;
+  overflow-y: auto;
 }
 
 .feed-component-common{
-  border: #5252521a 1px solid;
+  border: #5252522a 1px solid;
 }
 
 .left-col-feed{
@@ -2931,6 +2931,12 @@ color: white !important;
   height: 70px;
 
 }
+.comment-dp{
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+
+}
 
 .rounded-input {
   border: 1px solid #ccc;
@@ -2952,6 +2958,43 @@ color: white !important;
   padding-left: 0px !important;
 }
 
-* {
+h1, h2, h3, h4, h5, h6, p, span {
   color: #4d4d4d !important;
+}
+
+p {
+  margin: 0 !important;
+}
+
+.name-post{
+  font-size: 20px !important;
+  font-weight: 500;
+}
+
+.remove-right-padding{
+  padding-right: 0px !important;
+}
+
+.remove-left-padding{
+  padding-left: 0px !important;
+}
+.separator-name-and-content{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 1px;
+  width: 40%;
+  background-color: #4d4d4d2d;
+
+}
+.post-text{
+  text-align: justify;
+
+}
+
+.comment-send-icon{
+ margin-left: 20px !important;
+  cursor: pointer;
+  color: #4d4d4da6;
+  transform: rotate(90deg) !important;
+  height: 20px;
 }
