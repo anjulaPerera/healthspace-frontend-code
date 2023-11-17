@@ -2875,6 +2875,7 @@ color: white !important;
   padding-top: 10px;
   width: 100vw;
   height: calc(100vh - 70px);
+  /* background-color: #F0FFE3; */
   background-color: #222e17;
   overflow-y: auto;
 }

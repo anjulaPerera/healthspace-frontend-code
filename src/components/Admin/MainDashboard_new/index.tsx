@@ -39,7 +39,7 @@ const Feed: React.FC = () => {
             <div className="col-md-2 left-col-feed px-3 d-flex justify-content-center">
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common">
                 <div className="middle-content h-auto w-100 py-4 d-flex justify-content-center align-itmes-center">
-                  sdf
+                  Left Section
                 </div>
               </div>
             </div>
@@ -55,7 +55,7 @@ const Feed: React.FC = () => {
                       />
                     </div>
                     <div className="dets d-flex justify-content-center align-items-center rounded-corners-bottom flex-column">
-                      <h3 className="mt-4">Anju Perera</h3>
+                      <h3 className="mt-4 mb-2">Anju Perera</h3>
                       <h6>Software Engineer</h6>
                     </div>
                     <div className="profile-img">
@@ -67,11 +67,11 @@ const Feed: React.FC = () => {
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common mt-4">
                 <div className="middle-content h-auto w-100 p-2 d-flex justify-content-center align-itmes-center">
                   <div className="w-100 d-flex justify-content-center align-itmes-center post-write">
-                    <div className="row w-100">
+                    <div className="row w-100 pr-4">
                       <div className="col-md-2 d-flex justify-content-center align-itmes-center px-0">
                         <img src={Dp} alt="" className="search-dp" />
                       </div>
-                      <div className="col-md-9 d-flex justify-content-center align-items-center px-0">
+                      <div className="col-md-10 d-flex justify-content-center align-items-center px-0">
                         <input
                           type="text"
                           className="rounded-input w-100"
@@ -80,6 +80,14 @@ const Feed: React.FC = () => {
                             console.log(e.target.value);
                           }}
                         />
+                        <div className="post-btn d-flex justify-content-center align-items-center cursor-p">
+                          <span className="ml-1">Post</span>
+                          <FontAwesomeIcon
+                            icon={faPlay}
+                            className="ml-1"
+                            style={{ color: "#4d4d4da6" }}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
