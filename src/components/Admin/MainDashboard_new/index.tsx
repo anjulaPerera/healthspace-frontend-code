@@ -123,7 +123,14 @@ const Feed: React.FC = () => {
                         <LikeButton />
                         <div
                           className="comment-post d-flex justify-content-around align-items-center cursor-pointer"
-                          onClick={handleCommentBtnClick}
+                          onClick={
+                            !isCommentSent
+                              ? handleCommentBtnClick
+                              : () => {
+                                  handleCommentBtnClick();
+                                  handleCommentSendBtnClick();
+                                }
+                          }
                         >
                           <FontAwesomeIcon
                             icon={faMessage}
@@ -154,32 +161,67 @@ const Feed: React.FC = () => {
                                 <input
                                   type="text"
                                   className="rounded-input w-100"
-                                  placeholder="Start a post..."
+                                  placeholder="Leave a comment..."
                                   onChange={(e) => {
                                     console.log(e.target.value);
                                   }}
                                 />
+
                                 <button
-                                  type="submit"
-                                  className="btn btn-sm btn-primary comment-send-btn"
+                                  className="btn comment-send-btn d-flex justify-content-center align-items-center"
+                                  type="button"
                                   onClick={handleCommentSendBtnClick}
                                 >
-                                  <FontAwesomeIcon
-                                    icon={faAngleUp}
-                                    className="comment-send-icon"
-                                  />
+                                  Send
+                                  <span className="fas fa-chevron-right ml-1"></span>
                                 </button>
                               </form>
                             </div>
                           </div>
                         </div>
                       </div>
+
                       <div
-                        className={`${
-                          isCommentSent ? "comments-section" : "hidden"
+                        className={` ${
+                          isCommentSent
+                            ? "w-100 h-auto d-flex flex-column justify-content-center align-items-center"
+                            : "hidden"
                         }`}
                       >
-                        Comments Section
+                        <div className="w-100 h-auto d-flex flex-column justify-content-center align-items-center mt-3">
+                          <div className="row w-100">
+                            <div className="col-md-2 d-flex justify-content-center align-items-center w-100 h-auto remove-right-padding">
+                              <img src={Dp} alt="" className="dp-comment" />
+                            </div>
+                            <div className="col-md-8 px-1 d-flex justify-content-center align-items-center remove-left-padding">
+                              <div className="w-100 h-auto p-2 d-flex flex-column justify-content-center align-items-start comment-body-container">
+                                <div className="name">
+                                  <p className="bold">Anju Perera</p>
+                                </div>
+                                <div className="comment-body">
+                                  <p>This is a comment</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="w-100 h-auto d-flex flex-column justify-content-center align-items-center mt-3">
+                          <div className="row w-100">
+                            <div className="col-md-2 d-flex justify-content-center align-items-center w-100 h-auto remove-right-padding">
+                              <img src={Dp} alt="" className="dp-comment" />
+                            </div>
+                            <div className="col-md-8 px-1 d-flex justify-content-center align-items-center remove-left-padding">
+                              <div className="w-100 h-auto p-2 d-flex flex-column justify-content-center align-items-start comment-body-container">
+                                <div className="name">
+                                  <p className="bold">Anju Perera</p>
+                                </div>
+                                <div className="comment-body">
+                                  <p>This is a comment</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -189,7 +231,7 @@ const Feed: React.FC = () => {
             <div className="col-md-3 right-col-feed px-3 d-flex justify-content-center">
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common">
                 <div className="middle-content h-auto w-100 py-4 d-flex justify-content-center align-itmes-center">
-                  sdf
+                  right section
                 </div>
               </div>
             </div>
