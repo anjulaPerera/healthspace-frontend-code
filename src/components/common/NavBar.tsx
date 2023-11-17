@@ -16,23 +16,27 @@ import SilverBadge from "../vendors/images/Silver.svg";
 import GoldBadge from "../vendors/images/Gold.svg";
 import FreeBadge from "../vendors/images/Free.svg";
 import logOut from "../../components/vendors/images/logOut.svg";
+import FontAwesome from "react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faAngleDown,
+  faArrowDown,
+  faHeart,
+  faHouse,
+  faMessage,
+  faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
+import Dp from "../vendors/images/photo4.jpg";
 
 const NavBar: React.FC = () => {
   const [user, setUser] = useContext(UserContext);
-
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useContext(MenuContext);
   const [reload, setReload] = useState(false);
 
-  // const [tournamentData, setTournamentData] = useState<any>(null);
-  // const { tournamentId }: any = useParams();
-  // const [isUpgraded, setIsUpgraded] = useState<boolean>(false);
-  // const [nextPackage, setNextPackage] = useState<string>("");
-
-  // useEffect(() => {
-  //   const pack = "silver";
-  //   const pack2 = "gold";
-  //   setNextPackage(pack);
-  // });
+  const toggleDropdown = () => {
+    setDropdownVisible(!isDropdownVisible);
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -76,35 +80,50 @@ const NavBar: React.FC = () => {
         ></div>
       </div>
       {user?.userType === Role.SUPER_ADMIN ? null : (
-        <div className="header-right d-flex justify-content-between align-items-center flex-wrap">
+        <div className="header-right d-flex justify-content-between align-items-center flex-wrap pad-right-nav pad-left-nav">
           <div className="d-flex justify-content-start align-items-center header-container-left">
-            <div
-              onClick={logout}
-              className="dropdown-toggle selected-side no-arrow cursor-p"
-            >
-              <img src={logOut} alt="" className="micon" />
-              <span className="mtext mt-1">Logout</span>
+            <div className="">
+              <FontAwesomeIcon
+                icon={faHeart}
+                className="mr-2"
+                style={{ color: "Red", height: "30px" }}
+              />
             </div>
           </div>
-          <div className="d-flex justify-content-start align-items-center">
-            <span className="head-tournament-list user-name">
-              {user?.packageBought}{" "}
-              <span>
-                {user?.packageBought === "SILVER" ? (
-                  <img src={SilverBadge} alt="" />
-                ) : user?.packageBought === "GOLD" ? (
-                  <img src={GoldBadge} alt="" />
-                ) : (
-                  <img src={FreeBadge} alt="" />
-                )}
-              </span>{" "}
-            </span>
-            <span className="head-tournament-list user-name">
-              {user?.name}{" "}
-              <span>
-                <img src={UserImg1} alt="" />
-              </span>{" "}
-            </span>
+          <div className="d-flex justify-content-end align-items-end flex-row-reverse">
+            <div
+              className="d-flex flex-column justify-content-center align-items-center margin-left-nav-items pos-rel myself cursor-pointer"
+              onClick={toggleDropdown}
+            >
+              <img src={Dp} alt="" className="nav-dp" />
+              <div className="d-flex justify-centent-center align-items-center">
+                <span className="user-name fs-nav">{user?.name}</span>{" "}
+                <FontAwesomeIcon
+                  icon={faAngleDown}
+                  className="ml-1"
+                  style={{ color: "#4d4d4da6" }}
+                />
+              </div>
+              <div
+                className={`${
+                  isDropdownVisible
+                    ? "myself-dropdown h-auto d-flex flex-column justify-content-center align-items-start py-2 px-4"
+                    : "hidden"
+                }`}
+              >
+                <div
+                  className="logout fs-nav d-flex align-items-center cursor-pointer"
+                  onClick={logout}
+                >
+                  <p>Logout</p>{" "}
+                  <FontAwesomeIcon
+                    icon={faRightFromBracket}
+                    className="ml-1"
+                    style={{ color: "#4d4d4da6" }}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}

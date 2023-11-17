@@ -2942,6 +2942,12 @@ color: white !important;
   height: 50px;
 
 }
+.nav-dp{
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+
+}
 
 .rounded-input {
   border: 1px solid #ccc;
@@ -3019,4 +3025,31 @@ p {
 
 .comment-send-btn{
   color: #4d4d4d !important;
+}
+
+
+.pad-right-nav{
+  padding-right: 16rem;
+}
+.pad-left-nav{
+  padding-left: 15rem;
+}
+
+.margin-left-nav-items{
+  margin-left: 15px !important;
+}
+
+.fs-nav{
+  font-size: 13px !important;
+}
+
+.myself-dropdown{
+  position: absolute;
+  width: 15rem;
+  background-color: #fff;
+  top: 100% ;
+  right: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 8px 0 8px 8px;
+  border: #4d4d4d4b 1px solid;
 }
