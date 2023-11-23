@@ -71,7 +71,9 @@ const Profile: React.FC = () => {
                       <h3 className="mt-4 mb-2">Anju Perera</h3>
                       <h6>Software Engineer</h6>
                     </div>
-                    <div className="profile-img"></div>
+                    <div className="profile-img">
+                      <img src={Dp} alt="" className="dp w-100 h-100" />
+                    </div>
                   </div>
                 </div>
               </div>
