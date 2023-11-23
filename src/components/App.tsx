@@ -25,6 +25,8 @@ import SignUp from "./common/SignUp";
 import UpgradePlan from "./Admin/UserManagement/UpgradePlan";
 import MainDashboard2 from "./Admin/MainDashboard_new";
 import Feed from "./Admin/MainDashboard_new";
+import VerifyEmail from "./Admin/UserManagement/verify-email";
+import Profile from "./Admin/Personal/Profile";
 
 const languages = ["en", "fr"];
 
@@ -60,6 +62,9 @@ const App: React.FC = () => {
         </Route>
         <Route path={RouteName.SIGNUP}>
           <SignUp />
+        </Route>
+        <Route path="/verify-email">
+          <VerifyEmail />
         </Route>
 
         <Route path="/">
@@ -156,8 +161,8 @@ const PatientRouter: React.FC = () => {
             <Route path={RouteName.ADMIN_MAIN_DASHBOARD} exact>
               <MainDashboard2 />
             </Route>
-            <Route path={RouteName.ADMIN_PROFILE}>
-              <UserProfile />
+            <Route path={RouteName.ADMIN_PROFILE} exact>
+              <Profile />
             </Route>
 
             <Route path="*">

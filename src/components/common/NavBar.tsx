@@ -4,7 +4,7 @@ import "../vendors/styles/core.css";
 import "../vendors/styles/style.css";
 import { MenuContext } from "../../context/MenuContext";
 import "../vendors/styles/healthSpaceStyles.css";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useHistory, useParams } from "react-router-dom";
 import { AdminService } from "../../services/AdminService";
 import { Role } from "../../models/Role";
 import UserImg from "../vendors/images/icon/User.png";
@@ -19,12 +19,15 @@ import logOut from "../../components/vendors/images/logOut.svg";
 import FontAwesome from "react-fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faAngleDoubleRight,
   faAngleDown,
+  faAngleRight,
   faArrowDown,
   faHeart,
   faHouse,
   faMessage,
   faRightFromBracket,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import Dp from "../vendors/images/photo4.jpg";
 
@@ -33,6 +36,8 @@ const NavBar: React.FC = () => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useContext(MenuContext);
   const [reload, setReload] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const history = useHistory();
 
   const toggleDropdown = () => {
     setDropdownVisible(!isDropdownVisible);
@@ -47,6 +52,10 @@ const NavBar: React.FC = () => {
     window.location.reload();
   };
 
+  const handleClick = () => {
+    setIsExpanded(!isExpanded);
+  };
+
   useEffect(() => {
     AdminService.getUserById(user?._id).then((res) => {
       console.log("res", res.data);
@@ -56,20 +65,8 @@ const NavBar: React.FC = () => {
     });
   }, [reload]);
 
-  // useEffect(() => {
-  //   if (tournamentId) {
-  //     AdminService.getTournamentDataByTournamentId(tournamentId).then((res) => {
-  //       if (res.success) {
-  //         setTournamentData(res.data);
-  //       } else {
-  //         console.log("error", res.error);
-  //       }
-  //     });
-  //   }
-  // }, [tournamentId]);
-
-  const handleUpgradeClick = (user: any) => {
-    // setTournament(tournament);
+  const handleProfileClick = () => {
+    history.push(`/hs/profile/${user?._id}`);
   };
   return (
     <div className="header">
@@ -98,29 +95,51 @@ const NavBar: React.FC = () => {
               <img src={Dp} alt="" className="nav-dp" />
               <div className="d-flex justify-centent-center align-items-center">
                 <span className="user-name fs-nav">{user?.name}</span>{" "}
-                <FontAwesomeIcon
-                  icon={faAngleDown}
-                  className="ml-1"
-                  style={{ color: "#4d4d4da6" }}
-                />
+                <div onClick={handleClick}>
+                  {isExpanded ? (
+                    <FontAwesomeIcon
+                      icon={faAngleDown}
+                      className="ml-1"
+                      style={{ color: "#4d4d4da6" }}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faAngleRight}
+                      className="ml-2"
+                      style={{ color: "#4d4d4da6" }}
+                    />
+                  )}
+                  {/* Other content */}
+                </div>
               </div>
               <div
                 className={`${
                   isDropdownVisible
-                    ? "myself-dropdown h-auto d-flex flex-column justify-content-center align-items-start py-2 px-4"
+                    ? "myself-dropdown h-auto d-flex flex-column justify-content-center align-items-start py-2 px-2"
                     : "hidden"
                 }`}
               >
                 <div
-                  className="logout fs-nav d-flex align-items-center cursor-pointer"
-                  onClick={logout}
+                  className="logout fs-nav d-flex align-items-center cursor-pointer mb-1 grey-when-hovered w-100 pl-2 px-2 py-1"
+                  onClick={handleProfileClick}
                 >
-                  <p>Logout</p>{" "}
                   <FontAwesomeIcon
-                    icon={faRightFromBracket}
-                    className="ml-1"
+                    icon={faUser}
+                    className="mr-1"
                     style={{ color: "#4d4d4da6" }}
                   />
+                  <p>Profile</p>{" "}
+                </div>
+                <div
+                  className="logout fs-nav d-flex align-items-center cursor-pointer grey-when-hovered w-100 pl-2 px-2 py-1"
+                  onClick={logout}
+                >
+                  <FontAwesomeIcon
+                    icon={faRightFromBracket}
+                    className="mr-1"
+                    style={{ color: "#4d4d4da6" }}
+                  />{" "}
+                  <p>Logout</p>{" "}
                 </div>
               </div>
             </div>
