@@ -27,6 +27,7 @@ export interface User {
   goldPaymentLink?: string;
   profilePicture?: string;
   coverImage?: string;
+  occupation?: string;
 }
 
 export interface UserData {

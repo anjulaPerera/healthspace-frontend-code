@@ -16,12 +16,15 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import LikeButton from "./components/Like";
 import { FaComment } from "react-icons/fa";
 import SinglePost from "./components/SinglePost";
+import { PostsService } from "../../../services/PostsService";
+import { Posts } from "../../../models/Posts";
 
 const Feed: React.FC = () => {
   const [user] = useContext(UserContext);
   const [isCommentBtnClicked, setIsCommentBtnClicked] =
     useState<boolean>(false);
   const [isCommentSent, setIsCommentSent] = useState<boolean>(false);
+  const [posts, setPosts] = useState<Posts[]>([]);
 
   const handleCommentBtnClick = () => {
     setIsCommentBtnClicked(!isCommentBtnClicked);
@@ -31,17 +34,26 @@ const Feed: React.FC = () => {
     setIsCommentSent(!isCommentSent);
   };
 
-  // useEffect(() => {
-  //   console.log("user", user);
-  //   console.log("user pp", user?.profilePicture);
+  useEffect(() => {
+    try {
+      PostsService.getAllPosts()
+        .then((res) => {
+          console.log("get all posts res", res);
 
-  //   if (user?.profilePicture) {
-  //     const baseUrl = "http://localhost:9000"; // Replace with your actual server base URL
-  //     const absoluteUrl = `${baseUrl}/${user.profilePicture}`;
-  //     setProfilePictureUrl(absoluteUrl);
-  //     console.log("Absolute URL:", absoluteUrl);
-  //   }
-  // }, [user]);
+          if (res.data) {
+            console.log("posts", res.data);
+            setPosts(Array.isArray(res.data) ? res.data : []);
+          } else {
+            console.error("Invalid data structure received from the server.");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   return (
     <>
@@ -67,8 +79,8 @@ const Feed: React.FC = () => {
                       />
                     </div>
                     <div className="dets d-flex justify-content-center align-items-center rounded-corners-bottom flex-column">
-                      <h3 className="mt-4 mb-2">Anju Perera</h3>
-                      <h6>Software Engineer</h6>
+                      <h3 className="mt-4 mb-2">{user?.name}</h3>
+                      <h6>{user?.occupation}</h6>
                     </div>
                     <div className="profile-img">
                       {user?.profilePicture && (
@@ -116,7 +128,9 @@ const Feed: React.FC = () => {
                 </div>
               </div>
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common mt-4">
-                <SinglePost />
+                {posts.map((post, index) => (
+                  <SinglePost key={index} post={post} />
+                ))}
               </div>
             </div>
             <div className="col-md-3 right-col-feed px-3 d-flex justify-content-center">

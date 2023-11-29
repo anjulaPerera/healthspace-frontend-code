@@ -4,13 +4,24 @@ import LikeButton from "./Like";
 import UserContext from "../../../../context/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
+import { Posts } from "../../../../models/Posts";
+import { AdminService } from "../../../../services/AdminService";
+import { User } from "../../../../models/User";
 
-const SinglePost = () => {
+interface SinglePostProps {
+  post: Posts;
+}
+
+const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
   const [user] = useContext(UserContext);
   const [isCommentBtnClicked, setIsCommentBtnClicked] =
     useState<boolean>(false);
   const [isCommentSent, setIsCommentSent] = useState<boolean>(false);
-
+  const [postOwner, setPostOwner] = useState<User>();
+  const [timeElapsedAfterPosting, setTimeElapsedAfterPosting] =
+    useState<string>("");
+  const [postOwnerProfilePicture, setPostOwnerProfilePicture] =
+    useState<string>("");
   const handleCommentBtnClick = () => {
     setIsCommentBtnClicked(!isCommentBtnClicked);
     setIsCommentSent(false);
@@ -19,6 +30,46 @@ const SinglePost = () => {
   const handleCommentSendBtnClick = () => {
     setIsCommentSent(!isCommentSent);
   };
+
+  useEffect(() => {
+    AdminService.getUserById(post?.userId)
+      .then((res) => {
+        console.log(res.data, "is the post owner");
+        setPostOwner(res.data);
+        if (res.data?.profilePicture) {
+          const baseUrl = "http://localhost:9000";
+          const absoluteUrl = `${baseUrl}/${res.data.profilePicture}`;
+          console.log("Absolute URL:", absoluteUrl);
+          setPostOwnerProfilePicture(absoluteUrl);
+        }
+      })
+      .catch((err) => console.log(err));
+
+    const postTimeElapsed = calculateTimeElapsed(post.createdAt);
+    setTimeElapsedAfterPosting(postTimeElapsed);
+  }, []);
+
+  function calculateTimeElapsed(dateString: string | number | Date) {
+    const currentDate = new Date();
+    const previousDate = new Date(dateString);
+
+    const timeDifference = currentDate.getTime() - previousDate.getTime();
+    const seconds = Math.floor(timeDifference / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) {
+      return `${days} day${days === 1 ? "" : "s"} ago`;
+    } else if (hours > 0) {
+      return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+    } else if (minutes > 0) {
+      return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
+    } else {
+      return "Just now";
+    }
+  }
+
   return (
     <div className="middle-content h-auto w-100 py-4 d-flex justify-content-center align-itmes-center px-2 repeating-section-for-posts">
       <div className="w-100 rounded-corners p-2 h-auto d-flex justify-content-center align-items-center p-3 feed-component-common flex-column ">
@@ -26,13 +77,13 @@ const SinglePost = () => {
           <div className="row w-100 d-flex">
             <div className="col-md-2 remove-right-padding">
               {" "}
-              <img src={user?.profilePicture} alt="" className="search-dp" />
+              <img src={postOwnerProfilePicture} alt="" className="search-dp" />
             </div>
             <div className="col-md-10 remove-left-padding">
               <div className="row w-auto d-flex flex-column">
-                <p className="name-post">Anju Perera</p>
-                <p className="job-post">Software Engineer</p>
-                <p className="time-post">10h</p>
+                <p className="name-post">{postOwner?.name}</p>
+                <p className="job-post">{postOwner?.occupation}</p>
+                <p className="time-post">{timeElapsedAfterPosting}</p>
               </div>
             </div>
           </div>
@@ -42,19 +93,17 @@ const SinglePost = () => {
               <div className="separator-name-and-content"></div>
             </div>
           </div>
-          <div className="row w-100 px-2 d-flex justify-content-center align-items-center">
-            <p className="post-text">
-              kdf sdjikf sdjf kjsdbnf jiksdnfjksdn sdjijksdb sdjkfbsdjikbf
-              sdjkfbsdjb kdf sdjikf sdjf kjsdbnf jiksdnfjksdn sdjijksdb
-              sdjkfbsdjikbf sdjkfbsdjb kdf sdjikf sdjf kjsdbnf jiksdnfjksdn
-              sdjijksdb sdjkfbsdjikbf sdjkfbsdjb kdf sdjikf sdjf kjsdbnf
-              jiksdnfjksdn sdjijksdb sdjkfbsdjikbf sdjkfbsdjb
-            </p>
+          <div className="row w-100 px-2 d-flex justify-content-left align-items-center">
+            <p className="post-text">{post.content}</p>
           </div>
         </div>
         <div className="w-100 rounded-corners p-2 h-auto d-flex justify-content-center align-items-center p-3 feed-component-common flex-column mb-2">
           <div className="row w-100 d-flex justify-content-around align-items-center">
-            <LikeButton />
+            <LikeButton
+              likesFrom={post?.likesFrom || []}
+              postId={post?._id || ""}
+            />
+
             <div
               className="comment-post d-flex justify-content-around align-items-center cursor-pointer"
               onClick={

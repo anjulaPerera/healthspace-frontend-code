@@ -34,7 +34,7 @@ export class AdminService {
     return await axios.get<void, AppResponse<any>>(url);
   }
   public static async getUserById(userId: any): Promise<AppResponse<User>> {
-    const url = Util.apiAuthUrl(`get/user?id=${userId}`);
+    const url = Util.apiAuthUrl(`get/user/${userId}`);
     return await axios.get<User, AppResponse<User>>(url);
   }
 }
