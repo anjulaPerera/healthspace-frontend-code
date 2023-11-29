@@ -2952,10 +2952,11 @@ color: white !important;
 
 .rounded-input {
   border: 1px solid #ccc;
-  border-radius: 50px;
+  border-radius: 50px !important;
   padding: 10px 10px 10px 20px;
   outline: none;
   height: 85%;
+  margin-right: 15px;
 
 }
 
@@ -3147,4 +3148,11 @@ p {
 .feed-up{
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
   border: 1px solid #ffffff8c;
+}
+
+.align-items-center.cursor-p.py-1.px-2.post-btn{
+  border-radius: 6px;
+  background-color: rgb(39, 204, 196) !important;
+  color: #fff !important;
+  border: none !important;
 }

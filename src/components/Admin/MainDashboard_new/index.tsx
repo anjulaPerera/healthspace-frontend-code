@@ -18,6 +18,7 @@ import { FaComment } from "react-icons/fa";
 import SinglePost from "./components/SinglePost";
 import { PostsService } from "../../../services/PostsService";
 import { Posts } from "../../../models/Posts";
+import CreatePost from "./components/CreatePost";
 
 const Feed: React.FC = () => {
   const [user] = useContext(UserContext);
@@ -42,7 +43,14 @@ const Feed: React.FC = () => {
 
           if (res.data) {
             console.log("posts", res.data);
-            setPosts(Array.isArray(res.data) ? res.data : []);
+            const allPosts: any = res.data;
+            const sortedPosts = [...allPosts].sort((a: Posts, b: Posts) => {
+              const dateA = new Date(a?.createdAt || 0).getTime();
+              const dateB = new Date(b?.createdAt || 0).getTime();
+              return dateB - dateA;
+            });
+
+            setPosts(sortedPosts);
           } else {
             console.error("Invalid data structure received from the server.");
           }
@@ -94,39 +102,7 @@ const Feed: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-100 h-auto rounded-corners bg-white feed-component-common mt-4">
-                <div className="middle-content h-auto w-100 p-2 d-flex justify-content-center align-itmes-center">
-                  <div className="w-100 d-flex justify-content-center align-itmes-center post-write">
-                    <div className="row w-100 pr-4">
-                      <div className="col-md-2 d-flex justify-content-center align-itmes-center px-0">
-                        <img
-                          src={user?.profilePicture}
-                          alt=""
-                          className="search-dp"
-                        />
-                      </div>
-                      <div className="col-md-10 d-flex justify-content-center align-items-center px-0">
-                        <input
-                          type="text"
-                          className="rounded-input w-100"
-                          placeholder="Start a post..."
-                          onChange={(e) => {
-                            console.log(e.target.value);
-                          }}
-                        />
-                        <div className="post-btn d-flex justify-content-center align-items-center cursor-p">
-                          <span className="ml-1">Post</span>
-                          <FontAwesomeIcon
-                            icon={faPlay}
-                            className="ml-1"
-                            style={{ color: "#4d4d4da6" }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <CreatePost />
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common mt-4">
                 {posts.map((post, index) => (
                   <SinglePost key={index} post={post} />

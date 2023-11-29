@@ -1,8 +1,8 @@
+import { Posts } from './../models/Posts';
 import axios from "axios";
 import { AppResponse } from "../models/Response";
 import { Util } from "../Util";
 import { User, UserData } from "../models/User";
-import { Posts } from "../models/Posts";
 
 export class PostsService {
   public static async getAllPosts(): Promise<AppResponse<Posts>> {
@@ -11,7 +11,12 @@ export class PostsService {
     }
     
       public static async putLike(postId: any , userId: any): Promise<AppResponse<any>> {
-    const url = Util.apiPublicUrl(`post/${postId}/like/${userId}`);
+    const url = Util.apiAuthUrl(`post/${postId}/like/${userId}`);
     return await axios.post<Partial<any>, AppResponse<any>>(url);
   }
+      public static async sendPost(data:Partial<any>, userId:any): Promise<AppResponse<any>> {
+    const url = Util.apiAuthUrl(`post/create?id=${userId}`);
+    return await axios.post<Partial<any>, AppResponse<any>>(url,data);
+  }
+
 }
