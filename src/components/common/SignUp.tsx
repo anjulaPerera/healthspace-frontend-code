@@ -24,11 +24,101 @@ const SignUp: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const nextStep = () => {
-    setCurrentStep(currentStep + 1);
+    validationStep.validateForm().then((errors) => {
+      if (Object.keys(errors).length === 0) {
+        setCurrentStep(currentStep + 1);
+      } else {
+        console.log("Validation errors:", errors);
+        if (
+          !errors.name &&
+          !errors.email &&
+          !errors.dob &&
+          !errors.city &&
+          !errors.password &&
+          !errors.confirmPassword
+        ) {
+          console.log("first step okay");
+          setCurrentStep(currentStep + 1);
+        } else if (!errors.phone && !errors.occupation) {
+          console.log("second step okay");
+          setCurrentStep(currentStep + 1);
+        } else {
+          if (errors.name) {
+            swal({
+              title: "Error",
+              text: `${errors.name}`,
+              icon: "error",
+            });
+          } else if (errors.email) {
+            swal({
+              title: "Error",
+              text: `${errors.email}`,
+              icon: "error",
+            });
+          } else if (errors.dob) {
+            swal({
+              title: "Error",
+              text: `${errors.dob}`,
+              icon: "error",
+            });
+          } else if (errors.city) {
+            swal({
+              title: "Error",
+              text: `${errors.city}`,
+              icon: "error",
+            });
+          } else if (errors.password) {
+            swal({
+              title: "Error",
+              text: `${errors.password}`,
+              icon: "error",
+            });
+          } else if (errors.confirmPassword) {
+            swal({
+              title: "Error",
+              text: `${errors.confirmPassword}`,
+              icon: "error",
+            });
+          } else if (errors.phone) {
+            swal({
+              title: "Error",
+              text: `${errors.phone}`,
+              icon: "error",
+            });
+          } else if (errors.occupation) {
+            swal({
+              title: "Error",
+              text: `${errors.occupation}`,
+              icon: "error",
+            });
+          } else {
+            swal({
+              title: "Error",
+              text: "An error occurred. Please try again later.",
+              icon: "error",
+            });
+          }
+        }
+      }
+    });
   };
 
   const prevStep = () => {
     setCurrentStep(currentStep - 1);
+  };
+
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    fieldName: string
+  ) => {
+    const file = e.target.files && e.target.files[0];
+
+    console.log(`file:: ${fieldName}::`, file);
+
+    if (file) {
+      console.log(`inside if file exists set ${fieldName}-------------------`);
+      validationStep.setFieldValue(fieldName, file);
+    }
   };
 
   const handleSignUp = async (data: any) => {
@@ -37,29 +127,39 @@ const SignUp: React.FC = () => {
       console.log("data is available: inside if", data);
       try {
         console.log("inside try");
-        await PublicService.signUp(data)
-          .then((res) => {
-            console.log("res:::::", res);
-            if (res.success) {
-              console.log("inside res.success");
-              setIsOtpRequired(true);
-            } else {
-              swal({
-                title: "Error",
-                text: res.error,
-                icon: "error",
-              });
-              console.log("error======", res.error);
-            }
-          })
-          .catch((err) => {
-            swal({
-              title: "Error",
-              text: "An error occurred. Please try again later.",
-              icon: "error",
-            });
-            console.log("error++++++", err);
+
+        const formData = new FormData();
+
+        // Append other fields to FormData
+        formData.append("name", data.name);
+        formData.append("email", data.email);
+        formData.append("dob", data.dob);
+        formData.append("city", data.city);
+        formData.append("phone", data.phone);
+        formData.append("userType", data.userType);
+        formData.append("occupation", data.occupation);
+        formData.append("password", data.password);
+
+        // Append profilePicture as a file to FormData
+        formData.append("profilePicture", data.profilePicture);
+        formData.append("coverImage", data.coverImage);
+
+        console.log("formData", formData);
+
+        const res = await PublicService.signUp(formData);
+        console.log("res:::::", res);
+
+        if (res.success) {
+          console.log("inside res.success");
+          setIsOtpRequired(true);
+        } else {
+          swal({
+            title: "Error",
+            text: res.error,
+            icon: "error",
           });
+          console.log("error======", res.error);
+        }
       } catch (error) {
         swal({
           title: "Error",
@@ -71,6 +171,74 @@ const SignUp: React.FC = () => {
     }
   };
 
+  const validationStep = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      email: "",
+      name: "",
+      dob: "",
+      city: "",
+      phone: "",
+      userType: "",
+      occupation: "",
+      profilePicture: undefined,
+      coverImage: undefined,
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required("Please Enter Name"),
+      email: Yup.string().email("Email Invalid").required("Please Enter Email"),
+
+      dob: Yup.date().required("Please Enter Date of Birth"),
+      city: Yup.string().required("Please Enter City"),
+      password: Yup.string()
+        .min(6, "Password must be at least 6 characters")
+        .max(40)
+        .required("Please Enter  Password"),
+      confirmPassword: Yup.string()
+        .min(6, "Confirm password must be at least 6 characters")
+        .max(40)
+        .oneOf([Yup.ref("password")], "Passwords must match")
+        .required("Please Re-enter Your Password"),
+      phone: Yup.string().required("Please Enter Phone Number"),
+      userType: Yup.string().required("Please Select User Type"),
+      occupation: Yup.string().required("Please Enter Occupation"),
+    }),
+    onSubmit: async (values: any, { resetForm }) => {
+      console.log("inside validationStep onSubmit");
+      console.log("values", values);
+      console.log("values.profilePicture", values.profilePicture);
+      console.log("values.coverImage", values.coverImage);
+      const userData = {
+        name: values.name,
+        email: values.email,
+        dob: values.dob,
+        city: values.city,
+        phone: values.phone,
+        userType: values.userType,
+        occupation: values.occupation,
+        password: values.password,
+        profilePicture: values.profilePicture,
+        coverImage: values.coverImage,
+      };
+
+      console.log("userData before handleSignUp:::::", userData);
+
+      try {
+        await handleSignUp(userData);
+
+        resetForm();
+      } catch (error) {
+        swal({
+          title: "Error",
+          text: "An error occurred. Please try again later.",
+          icon: "error",
+        });
+        console.log("error++++++", error);
+      }
+    },
+  });
   const handleOtpVerification = async (otpInput: any) => {
     console.log("otp email", validationStepOtp.values.email);
     try {
@@ -93,62 +261,6 @@ const SignUp: React.FC = () => {
       console.log("catch", error);
     }
   };
-
-  const validationStep = useFormik({
-    enableReinitialize: true,
-    initialValues: {
-      email: "",
-      name: "",
-      dob: "",
-      city: "",
-      phone: "",
-      userType: "",
-      occupation: "",
-      // profilePicture: "",
-      // coverImage: "",
-      password: "",
-      confirmPassword: "",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().email("Email Invalid").required("Please Enter Email"),
-      name: Yup.string().required("Please Enter Name"),
-      dob: Yup.date().required("Please Enter Date of Birth"),
-      city: Yup.string().required("Please Enter City"),
-      phone: Yup.string().required("Please Enter Phone Number"),
-      userType: Yup.string().required("Please Select User Type"),
-      occupation: Yup.string().required("Please Enter Occupation"),
-      // profilePicture: Yup.mixed().required("Please Upload Profile Picture"),
-
-      password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
-        .max(40)
-        .required("Please Enter  Password"),
-      confirmPassword: Yup.string()
-        .min(6, "Confirm password must be at least 6 characters")
-        .max(40)
-        .oneOf([Yup.ref("password")], "Passwords must match")
-        .required("Please Re-enter Your Password"),
-    }),
-    onSubmit: (values, { resetForm }) => {
-      const userData = {
-        name: values.name,
-        email: values.email,
-        dob: values.dob,
-        city: values.city,
-        phone: values.phone,
-        userType: values.userType,
-        occupation: values.occupation,
-        // profilePicture: values.profilePicture,
-        // coverImage: values.coverImage,
-        password: values.password,
-      };
-
-      console.log("userData before handleSignUp", userData);
-
-      handleSignUp(userData);
-      resetForm();
-    },
-  });
   const validationStepOtp = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -173,6 +285,7 @@ const SignUp: React.FC = () => {
   const handleOkayClick = () => {
     history.push("/login");
   };
+
   return (
     <>
       <div className="login-page">
@@ -474,26 +587,18 @@ const SignUp: React.FC = () => {
                               </FormFeedback>
                             ) : null}
                           </div>
-                          {/* <div className="textbox2 mb-3">
+                          <div className="textbox2 mb-3">
                             <img
                               src={emailIconLogin}
                               alt="Input Icon"
                               className="input-icon"
                             />
-                            <Input
+                            <input
                               id="profilePicture"
                               name="profilePicture"
-                              className="form-control"
-                              placeholder="Upload your Profile picture"
                               type="file"
-                              value={validationStep.values.profilePicture}
-                              onChange={validationStep.handleChange}
-                              onBlur={validationStep.handleBlur}
-                              invalid={
-                                validationStep.touched.profilePicture &&
-                                validationStep.errors.profilePicture
-                                  ? true
-                                  : false
+                              onChange={(e) =>
+                                handleFileChange(e, "profilePicture")
                               }
                             />
                             {validationStep.touched.profilePicture &&
@@ -509,20 +614,12 @@ const SignUp: React.FC = () => {
                               alt="Input Icon"
                               className="input-icon"
                             />
-                            <Input
+                            <input
                               id="coverImage"
                               name="coverImage"
-                              className="form-control"
-                              placeholder="Upload your Cover image"
                               type="file"
-                              value={validationStep.values.coverImage}
-                              onChange={validationStep.handleChange}
-                              onBlur={validationStep.handleBlur}
-                              invalid={
-                                validationStep.touched.coverImage &&
-                                validationStep.errors.coverImage
-                                  ? true
-                                  : false
+                              onChange={(e) =>
+                                handleFileChange(e, "coverImage")
                               }
                             />
                             {validationStep.touched.coverImage &&
@@ -531,7 +628,7 @@ const SignUp: React.FC = () => {
                                 {validationStep.errors.coverImage}
                               </FormFeedback>
                             ) : null}
-                          </div> */}
+                          </div>
                         </>
                       )}
                       {currentStep === 3 && (

@@ -56,11 +56,43 @@ const NavBar: React.FC = () => {
     setIsExpanded(!isExpanded);
   };
 
+  // useEffect(() => {
+  //   AdminService.getUserById(user?._id).then((res) => {
+  //     console.log("res", res.data);
+  //     const profilePicture = res.data.profilePicture;
+
+  //     const user: User = res.data;
+  //     setUser(user);
+  //     setReload(false);
+  //   });
+  // }, [reload]);
+
   useEffect(() => {
     AdminService.getUserById(user?._id).then((res) => {
       console.log("res", res.data);
-      const user: User = res.data;
-      setUser(user);
+      const userData: User = res.data;
+
+      // Modify profilePicture property
+      if (userData?.profilePicture) {
+        const baseUrl = "http://localhost:9000";
+        const absoluteUrl = `${baseUrl}/${userData.profilePicture}`;
+        console.log("Absolute URL:", absoluteUrl);
+
+        // Assign the absoluteUrl back to the profilePicture property
+        userData.profilePicture = absoluteUrl;
+      }
+
+      if (userData?.coverImage) {
+        const baseUrl = "http://localhost:9000";
+        const absoluteUrl = `${baseUrl}/${userData.coverImage}`;
+        console.log("Absolute URL:", absoluteUrl);
+
+        // Assign the absoluteUrl back to the profilePicture property
+        userData.coverImage = absoluteUrl;
+      }
+
+      // Set the modified user data
+      setUser(userData);
       setReload(false);
     });
   }, [reload]);
@@ -92,7 +124,7 @@ const NavBar: React.FC = () => {
               className="d-flex flex-column justify-content-center align-items-center margin-left-nav-items pos-rel myself cursor-pointer"
               onClick={toggleDropdown}
             >
-              <img src={Dp} alt="" className="nav-dp" />
+              <img src={user?.profilePicture} alt="" className="nav-dp" />
               <div className="d-flex justify-centent-center align-items-center">
                 <span className="user-name fs-nav">{user?.name}</span>{" "}
                 <div onClick={handleClick}>

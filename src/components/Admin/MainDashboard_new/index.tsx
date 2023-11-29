@@ -31,6 +31,18 @@ const Feed: React.FC = () => {
     setIsCommentSent(!isCommentSent);
   };
 
+  // useEffect(() => {
+  //   console.log("user", user);
+  //   console.log("user pp", user?.profilePicture);
+
+  //   if (user?.profilePicture) {
+  //     const baseUrl = "http://localhost:9000"; // Replace with your actual server base URL
+  //     const absoluteUrl = `${baseUrl}/${user.profilePicture}`;
+  //     setProfilePictureUrl(absoluteUrl);
+  //     console.log("Absolute URL:", absoluteUrl);
+  //   }
+  // }, [user]);
+
   return (
     <>
       <div className="full-screen">
@@ -49,7 +61,7 @@ const Feed: React.FC = () => {
                   <div className="w-100 h-100 d-flex justify-content-center align-items-center flex-column pos-rel">
                     <div className="cover-img d-flex justify-content-center align-items-center rounded-corners-top">
                       <img
-                        src={CoverImg}
+                        src={user?.coverImage}
                         alt=""
                         className="rounded-corners-top w-100 h-100"
                       />
@@ -59,7 +71,13 @@ const Feed: React.FC = () => {
                       <h6>Software Engineer</h6>
                     </div>
                     <div className="profile-img">
-                      <img src={Dp} alt="" className="dp w-100 h-100" />
+                      {user?.profilePicture && (
+                        <img
+                          src={user?.profilePicture}
+                          alt="Profile Picture"
+                          className="dp w-100 h-100 feed-up"
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
@@ -69,7 +87,11 @@ const Feed: React.FC = () => {
                   <div className="w-100 d-flex justify-content-center align-itmes-center post-write">
                     <div className="row w-100 pr-4">
                       <div className="col-md-2 d-flex justify-content-center align-itmes-center px-0">
-                        <img src={Dp} alt="" className="search-dp" />
+                        <img
+                          src={user?.profilePicture}
+                          alt=""
+                          className="search-dp"
+                        />
                       </div>
                       <div className="col-md-10 d-flex justify-content-center align-items-center px-0">
                         <input

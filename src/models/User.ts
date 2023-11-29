@@ -25,6 +25,8 @@ export interface User {
   paymentDetails?: PaymentDetails;
   silverPaymentLink?: string;
   goldPaymentLink?: string;
+  profilePicture?: string;
+  coverImage?: string;
 }
 
 export interface UserData {

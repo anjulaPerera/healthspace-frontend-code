@@ -26,7 +26,7 @@ const SinglePost = () => {
           <div className="row w-100 d-flex">
             <div className="col-md-2 remove-right-padding">
               {" "}
-              <img src={Dp} alt="" className="search-dp" />
+              <img src={user?.profilePicture} alt="" className="search-dp" />
             </div>
             <div className="col-md-10 remove-left-padding">
               <div className="row w-auto d-flex flex-column">
@@ -82,7 +82,11 @@ const SinglePost = () => {
             <div className="w-100 d-flex justify-content-center align-itmes-center comment-write">
               <div className="row w-100">
                 <div className="col-md-1 d-flex justify-content-center align-itmes-center px-0">
-                  <img src={Dp} alt="" className="comment-dp" />
+                  <img
+                    src={user?.profilePicture}
+                    alt=""
+                    className="comment-dp"
+                  />
                 </div>
                 <div className="col-md-9 d-flex justify-content-center align-items-center px-0 ml-2">
                   <form action="" className="w-100 d-flex align-items-center">
@@ -119,7 +123,11 @@ const SinglePost = () => {
             <div className="w-100 h-auto d-flex flex-column justify-content-center align-items-center mt-3">
               <div className="row w-100">
                 <div className="col-md-2 d-flex justify-content-center align-items-center w-100 h-auto remove-right-padding">
-                  <img src={Dp} alt="" className="dp-comment" />
+                  <img
+                    src={user?.profilePicture}
+                    alt=""
+                    className="dp-comment"
+                  />
                 </div>
                 <div className="col-md-8 px-1 d-flex justify-content-center align-items-center remove-left-padding">
                   <div className="w-100 h-auto p-2 d-flex flex-column justify-content-center align-items-start comment-body-container">
@@ -136,7 +144,11 @@ const SinglePost = () => {
             <div className="w-100 h-auto d-flex flex-column justify-content-center align-items-center mt-3">
               <div className="row w-100">
                 <div className="col-md-2 d-flex justify-content-center align-items-center w-100 h-auto remove-right-padding">
-                  <img src={Dp} alt="" className="dp-comment" />
+                  <img
+                    src={user?.profilePicture}
+                    alt=""
+                    className="dp-comment"
+                  />
                 </div>
                 <div className="col-md-8 px-1 d-flex justify-content-center align-items-center remove-left-padding">
                   <div className="w-100 h-auto p-2 d-flex flex-column justify-content-center align-items-start comment-body-container">
