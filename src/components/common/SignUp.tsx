@@ -4,17 +4,29 @@ import { PublicService } from "../../services/PublicService";
 import { RouteName } from "../../RouteName";
 import "../vendors/styles/healthSpaceStyles.css";
 import loginImageLeft from "../../components/vendors/images/loginImageLeft.svg";
-import loginImageRight from "../../components/vendors/images/loginImageRight.svg";
-import loginCardImage from "../../components/vendors/images/loginCardImage.svg";
+import loginImageRight from "../../components/vendors/images/loginImageRight.jpg";
+import rightBg from "../../components/vendors/images/right-bg.jpg";
 import userIconLogin from "../../components/vendors/images/userIconLogin.svg";
 import emailIconLogin from "../../components/vendors/images/emailIconLogin.svg";
 import globeIcon from "../../components/vendors/images/globe-solid.svg";
 import userLoginPasswordIcon from "../../components/vendors/images/userLoginPasswordIcon.svg";
 import swal from "sweetalert";
-import Logo from "../vendors/images/icon/logo2.png";
+import Logo from "../vendors/images/logo-text.png";
 import { FormFeedback, Form, Input } from "reactstrap";
 import { Field, useFormik } from "formik";
 import * as Yup from "yup";
+import {
+  faBriefcase,
+  faCalendar,
+  faCity,
+  faEnvelope,
+  faKey,
+  faPhone,
+  faUser,
+  faUserSecret,
+} from "@fortawesome/free-solid-svg-icons";
+import FontAwesome from "react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SignUp: React.FC = () => {
   const history = useHistory();
@@ -289,30 +301,27 @@ const SignUp: React.FC = () => {
   return (
     <>
       <div className="login-page">
-        <div className="left-bg">
-          <img src={loginImageLeft} alt="Left Background" />
-        </div>
-        <div className="right-bg">
+        <div className="all-bg">
           <img src={loginImageRight} alt="Right Background" />
         </div>
 
         <div className="container">
-          <div className="login-body d-lg-flex text-center ">
-            <div className="box-1 mt-md-0 ">
+          <div className="login-body d-lg-flex text-center">
+            <div className="box-1 mt-md-0">
               <div className="mt-5 d-flex justify-content-center">
                 <div className="login-form ">
-                  <div className="">
+                  <div className="w-100">
                     <NavLink to={"/login"}>
                       <img
                         src={Logo}
-                        className="main-logo"
-                        alt="cricView360_logo"
+                        className="main-logo w-100"
+                        alt="healthspace_logo"
                       />
                     </NavLink>
                   </div>
                   {isOtpRequired ? (
                     <Form className="form-horizontal">
-                      <p className="mb-1 h-1 text-center login-header">
+                      <p className="h-1 text-center login-header">
                         Verify Email
                       </p>
 
@@ -353,9 +362,13 @@ const SignUp: React.FC = () => {
                       {currentStep === 1 && (
                         <>
                           <div className="textbox2 mb-3 mt-5">
-                            <img
+                            {/* <img
                               src={userIconLogin}
                               alt="Input Icon"
+                              className="input-icon"
+                            /> */}
+                            <FontAwesomeIcon
+                              icon={faUser}
                               className="input-icon"
                             />
                             <Input
@@ -384,9 +397,8 @@ const SignUp: React.FC = () => {
                             ) : null}
                           </div>
                           <div className="textbox2 mb-3">
-                            <img
-                              src={emailIconLogin}
-                              alt="Input Icon"
+                            <FontAwesomeIcon
+                              icon={faEnvelope}
                               className="input-icon"
                             />
                             <Input
@@ -413,15 +425,10 @@ const SignUp: React.FC = () => {
                             ) : null}
                           </div>
                           <div className="textbox2 mb-3">
-                            <img
-                              src={emailIconLogin}
-                              alt="Input Icon"
-                              className="input-icon"
-                            />
                             <Input
                               id="dob"
                               name="dob"
-                              className="form-control"
+                              className="form-control pr-0"
                               placeholder="Enter your DOB"
                               type="date"
                               value={validationStep.values.dob}
@@ -441,10 +448,10 @@ const SignUp: React.FC = () => {
                               </FormFeedback>
                             ) : null}
                           </div>
+
                           <div className="textbox2 mb-3">
-                            <img
-                              src={emailIconLogin}
-                              alt="Input Icon"
+                            <FontAwesomeIcon
+                              icon={faCity}
                               className="input-icon"
                             />
                             <Input
@@ -471,9 +478,8 @@ const SignUp: React.FC = () => {
                             ) : null}
                           </div>
                           <div className="textbox2 mb-3">
-                            <img
-                              src={userLoginPasswordIcon}
-                              alt="Input Icon"
+                            <FontAwesomeIcon
+                              icon={faKey}
                               className="input-icon"
                             />
                             <Input
@@ -498,9 +504,8 @@ const SignUp: React.FC = () => {
                             ) : null}
                           </div>
                           <div className="textbox2 mb-3">
-                            <img
-                              src={userLoginPasswordIcon}
-                              alt="Input Icon"
+                            <FontAwesomeIcon
+                              icon={faKey}
                               className="input-icon"
                             />
                             <Input
@@ -530,9 +535,8 @@ const SignUp: React.FC = () => {
                       {currentStep === 2 && (
                         <>
                           <div className="textbox2 mb-3 mt-5">
-                            <img
-                              src={emailIconLogin}
-                              alt="Input Icon"
+                            <FontAwesomeIcon
+                              icon={faPhone}
                               className="input-icon"
                             />
                             <Input
@@ -559,9 +563,8 @@ const SignUp: React.FC = () => {
                             ) : null}
                           </div>
                           <div className="textbox2 mb-3">
-                            <img
-                              src={emailIconLogin}
-                              alt="Input Icon"
+                            <FontAwesomeIcon
+                              icon={faBriefcase}
                               className="input-icon"
                             />
                             <Input
@@ -587,7 +590,7 @@ const SignUp: React.FC = () => {
                               </FormFeedback>
                             ) : null}
                           </div>
-                          <div className="textbox2 mb-3">
+                          {/* <div className="textbox2 mb-3">
                             <img
                               src={emailIconLogin}
                               alt="Input Icon"
@@ -607,8 +610,36 @@ const SignUp: React.FC = () => {
                                 {validationStep.errors.profilePicture}
                               </FormFeedback>
                             ) : null}
-                          </div>
+                          </div> */}
                           <div className="textbox2 mb-3">
+                            <div className="custom-file">
+                              <input
+                                id="profilePicture"
+                                name="profilePicture"
+                                type="file"
+                                className="custom-file-input"
+                                onChange={(e) =>
+                                  handleFileChange(e, "profilePicture")
+                                }
+                              />
+                              <label
+                                className="custom-file-label"
+                                htmlFor="profilePicture"
+                              >
+                                {validationStep.touched.profilePicture &&
+                                validationStep.errors.profilePicture
+                                  ? validationStep.errors.profilePicture
+                                  : "Choose profile picture..."}
+                              </label>
+                              {validationStep.touched.profilePicture &&
+                              validationStep.errors.profilePicture ? (
+                                <div className="invalid-feedback">
+                                  {validationStep.errors.profilePicture}
+                                </div>
+                              ) : null}
+                            </div>
+                          </div>
+                          {/* <div className="textbox2 mb-3">
                             <img
                               src={emailIconLogin}
                               alt="Input Icon"
@@ -628,6 +659,34 @@ const SignUp: React.FC = () => {
                                 {validationStep.errors.coverImage}
                               </FormFeedback>
                             ) : null}
+                          </div> */}
+                          <div className="textbox2 mb-3">
+                            <div className="custom-file">
+                              <input
+                                id="coverImage"
+                                name="coverImage"
+                                type="file"
+                                className="custom-file-input"
+                                onChange={(e) =>
+                                  handleFileChange(e, "coverImage")
+                                }
+                              />
+                              <label
+                                className="custom-file-label"
+                                htmlFor="coverImage"
+                              >
+                                {validationStep.touched.coverImage &&
+                                validationStep.errors.coverImage
+                                  ? validationStep.errors.coverImage
+                                  : "Choose cover image..."}
+                              </label>
+                              {validationStep.touched.coverImage &&
+                              validationStep.errors.coverImage ? (
+                                <div className="invalid-feedback">
+                                  {validationStep.errors.coverImage}
+                                </div>
+                              ) : null}
+                            </div>
                           </div>
                         </>
                       )}
@@ -769,8 +828,8 @@ const SignUp: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className=" box-2 d-flex flex-column">
-              <img src={loginCardImage} alt="Right Background" />
+            <div className="box-2 d-flex flex-column">
+              <img src={rightBg} alt="Right Background" />
             </div>
           </div>
         </div>

@@ -45,6 +45,14 @@
   right: 0;
 }
 
+.all-bg{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .container {
   margin: 50px auto;
 }
@@ -197,6 +205,10 @@
   padding: 3px 0;
   margin: 0px 0;
   border-bottom: 0.7px solid #656565;
+      display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        align-items: center;
 }
 .is-invalid {
   background-image: none !important;
@@ -310,7 +322,7 @@
   line-height: 20px;
   letter-spacing: 0px;
   text-align: left;
-  color: #1e6faa;
+  color: #179798;
 }
 
 /* Optional: Add some spacing between checkboxes */
@@ -324,9 +336,9 @@
   top: 512px;
   left: 494px;
   border-radius: 3px;
-  background: #1e6faa;
+  background: #179798;
   color: #ffffff;
-  border: 1px #1e6faa;
+  border: 1px #179798;
   /* box-shadow: 0px 4px 20px 0px #00000033; */
 }
 
@@ -347,7 +359,7 @@
   line-height: 20px;
   letter-spacing: 0px;
   text-align: left;
-  color: #1e6faa;
+  color: #179798;
 }
 
 .dashboard-title-txt {
@@ -435,7 +447,7 @@
   letter-spacing: 0em;
 
   color: #ffffff;
-  background: #1e6faa;
+  background: #179798;
 }
 
 .dashboard-update-btn-extra {
@@ -483,7 +495,7 @@
   letter-spacing: 0em;
 
   color: #ffffff;
-  background: #1e6faa;
+  background: #179798;
   margin-left: 12px !important;
 }
 
@@ -571,9 +583,9 @@ th {
   width: 273px;
   height: 46px;
   border-radius: 3px;
-  background: #1e6faa;
+  background: #179798;
   color: #ffffff;
-  border: 1px #1e6faa;
+  border: 1px #179798;
   /* box-shadow: 0px 4px 20px 0px #00000033; */
 }
 
@@ -581,10 +593,10 @@ th {
   width: 260px;
   height: 38px;
   border-radius: 3px;
-  background: #1e6faa;
+  background: #179798;
   color: #ffffff;
   font-size: 15px !important;
-  border: 1px #1e6faa;
+  border: 1px #179798;
 }
 
 .create-tournament-container {
@@ -1736,7 +1748,7 @@ th {
   background-color: #bfe4ff !important;
 }
 .bg-blue7 {
-  background-color: #1e6faa !important;
+  background-color: #179798 !important;
 }
 .bg-green {
   background-color: #1ca171 !important;
@@ -1789,6 +1801,10 @@ th {
 .pl-pr-0 {
   padding-left: 0px !important;
   padding-right: 0px !important;
+}
+
+.pr-0{
+  padding-right: opx !important;
 }
 
 .input-border {
@@ -1892,7 +1908,7 @@ th {
 }
 
 .arrow-btn {
-  background-color: #1e6faa !important;
+  background-color: #179798 !important;
   border-radius: 3px !important;
   padding: 10px 20px 10px 20px !important;
   display: flex;
@@ -1902,7 +1918,7 @@ th {
   /* width: 50%; */
 }
 .arrow-btn-mymatches {
-  background-color: #1e6faa !important;
+  background-color: #179798 !important;
   border-radius: 3px !important;
   padding: 5px 0px 5px 0px !important;
   display: flex;
@@ -1914,7 +1930,7 @@ th {
 
 
 .arrow-btn4 {
-  background-color: #1e6faa !important;
+  background-color: #179798 !important;
   border-radius: 3px !important;
   padding: 10px 20px 10px 20px !important;
   display: flex;
@@ -1926,7 +1942,7 @@ th {
 
 @media (max-width: 425px) {
   .arrow-btn {
-    background-color: #1e6faa !important;
+    background-color: #179798 !important;
     border-radius: 3px !important;
     padding: 10px 10px 10px 10px !important;
     display: flex;
@@ -1937,7 +1953,7 @@ th {
   }
 
   .arrow-btn4 {
-    background-color: #1e6faa !important;
+    background-color: #179798 !important;
     border-radius: 3px !important;
     padding: 10px 10px 10px 10px !important;
     display: flex;
@@ -1949,7 +1965,7 @@ th {
 }
 
 .arrow-btn2 {
-  background-color: #1e6faa !important;
+  background-color: #179798 !important;
   border-radius: 3px !important;
   padding: 10px 10px 10px 10px !important;
   display: flex;
@@ -3155,4 +3171,35 @@ p {
   background-color: rgb(39, 204, 196) !important;
   color: #fff !important;
   border: none !important;
+}
+
+.custom-file-label{
+  font-size: 13px !important;
+  color: #656565;
+  display: flex !important;
+  justify-content: left !important;
+  align-items: center !important;
+}
+
+.custom-file-label::after {
+  display: flex !important;
+align-items: center !important;
+}
+
+input[type="date"]::-moz-calendar-picker-indicator {
+  background-color: transparent;
+  color: #333;
+  font-size: 50px !important;
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: transparent;
+  font-size: 1.9em;
+  margin-right: -20px;
+  cursor: pointer;
+}
+
+.form-control.pr-0{
+  width: 92% !important;
 }

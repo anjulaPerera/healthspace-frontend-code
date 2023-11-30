@@ -19,7 +19,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ likesFrom, postId }) => {
     } else {
       setIsLiked(false);
     }
-  }, [user, likesFrom, likesFrom.length]);
+  }, [user]);
 
   const handleLikeClick = () => {
     setIsLiked(!isLiked);

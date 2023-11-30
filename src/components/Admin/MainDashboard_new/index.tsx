@@ -61,7 +61,7 @@ const Feed: React.FC = () => {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [posts]);
 
   return (
     <>
