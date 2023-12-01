@@ -12,11 +12,8 @@ import UserImg1 from "../vendors/images/icon/userIcon.png";
 // import Certificate from "../vendors/images/icon/Certificate.png";
 // import Certificate1 from "../vendors/images/icon/packageIcon.png";
 import { User } from "../../models/User";
-import SilverBadge from "../vendors/images/Silver.svg";
-import GoldBadge from "../vendors/images/Gold.svg";
-import FreeBadge from "../vendors/images/Free.svg";
-import logOut from "../../components/vendors/images/logOut.svg";
-import FontAwesome from "react-fontawesome";
+import logo_png from "../../components/vendors/images/logo-png.png";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleDoubleRight,
@@ -111,12 +108,8 @@ const NavBar: React.FC = () => {
       {user?.userType === Role.SUPER_ADMIN ? null : (
         <div className="header-right d-flex justify-content-between align-items-center flex-wrap pad-right-nav pad-left-nav">
           <div className="d-flex justify-content-start align-items-center header-container-left">
-            <div className="">
-              <FontAwesomeIcon
-                icon={faHeart}
-                className="mr-2"
-                style={{ color: "Red", height: "30px" }}
-              />
+            <div className="w-100 h-100">
+              <img src={logo_png} alt="logo" className="navbar-logo" />
             </div>
           </div>
           <div className="d-flex justify-content-end align-items-end flex-row-reverse">

@@ -3211,3 +3211,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .fas.fa-chevron-right.ml-1.login-span.text-white{
   color: white !important;
 }
+.navbar-logo{
+  height: 50px;
+}

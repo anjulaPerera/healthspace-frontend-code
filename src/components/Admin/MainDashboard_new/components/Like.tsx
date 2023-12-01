@@ -39,7 +39,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ likesFrom, postId }) => {
       .then((res) => {
         console.log(res);
         setIsLiked(!isLiked);
-        setLikesCount(likesCount + 1);
+        isLiked ? setLikesCount(likesCount - 1) : setLikesCount(likesCount + 1);
       })
       .catch((err) => {
         console.log(err);
