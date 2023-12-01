@@ -12,6 +12,10 @@ export class PostsService {
     const url = Util.apiAuthUrl(`posts/get/${postId}`);
     return await axios.get<Posts, AppResponse<Posts>>(url);
     }
+  public static async getPostsByUserId(userId: any): Promise<AppResponse<Posts>> {
+    const url = Util.apiAuthUrl(`posts/get/posts/by/${userId}`);
+    return await axios.get<Posts, AppResponse<Posts>>(url);
+    }
     
       public static async putLike(postId: any , userId: any): Promise<AppResponse<any>> {
     const url = Util.apiAuthUrl(`post/${postId}/like/${userId}`);

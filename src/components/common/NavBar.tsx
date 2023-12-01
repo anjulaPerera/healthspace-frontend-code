@@ -27,6 +27,7 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import Dp from "../vendors/images/photo4.jpg";
+import { environment } from "../../environment/environment";
 
 const NavBar: React.FC = () => {
   const [user, setUser] = useContext(UserContext);
@@ -53,42 +54,25 @@ const NavBar: React.FC = () => {
     setIsExpanded(!isExpanded);
   };
 
-  // useEffect(() => {
-  //   AdminService.getUserById(user?._id).then((res) => {
-  //     console.log("res", res.data);
-  //     const profilePicture = res.data.profilePicture;
-
-  //     const user: User = res.data;
-  //     setUser(user);
-  //     setReload(false);
-  //   });
-  // }, [reload]);
-
   useEffect(() => {
     AdminService.getUserById(user?._id).then((res) => {
       console.log("res", res.data);
       const userData: User = res.data;
 
-      // Modify profilePicture property
       if (userData?.profilePicture) {
-        const baseUrl = "http://localhost:9000";
+        const baseUrl = environment.api_url;
         const absoluteUrl = `${baseUrl}/${userData.profilePicture}`;
         console.log("Absolute URL:", absoluteUrl);
-
-        // Assign the absoluteUrl back to the profilePicture property
         userData.profilePicture = absoluteUrl;
       }
 
       if (userData?.coverImage) {
-        const baseUrl = "http://localhost:9000";
+        const baseUrl = environment.api_url;
         const absoluteUrl = `${baseUrl}/${userData.coverImage}`;
         console.log("Absolute URL:", absoluteUrl);
-
-        // Assign the absoluteUrl back to the profilePicture property
         userData.coverImage = absoluteUrl;
       }
 
-      // Set the modified user data
       setUser(userData);
       setReload(false);
     });
@@ -108,9 +92,11 @@ const NavBar: React.FC = () => {
       {user?.userType === Role.SUPER_ADMIN ? null : (
         <div className="header-right d-flex justify-content-between align-items-center flex-wrap pad-right-nav pad-left-nav">
           <div className="d-flex justify-content-start align-items-center header-container-left">
-            <div className="w-100 h-100">
-              <img src={logo_png} alt="logo" className="navbar-logo" />
-            </div>
+            <NavLink to="/hs/home">
+              <div className="w-100 h-100">
+                <img src={logo_png} alt="logo" className="navbar-logo" />
+              </div>
+            </NavLink>
           </div>
           <div className="d-flex justify-content-end align-items-end flex-row-reverse">
             <div

@@ -19,6 +19,7 @@ import SinglePost from "./components/SinglePost";
 import { PostsService } from "../../../services/PostsService";
 import { Posts } from "../../../models/Posts";
 import CreatePost from "./components/CreatePost";
+import CommonProfile from "../Personal/CommonProfile";
 
 const Feed: React.FC = () => {
   const [user] = useContext(UserContext);
@@ -75,40 +76,14 @@ const Feed: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="col-md-7 middle-col-feed px-3 d-flex justify-content-center flex-column">
-              <div className="w-100 h-auto bg-white feed-component-common rounded-corners">
-                <div className="middle-content h-auto w-100 d-flex justify-content-center align-itmes-center profile-details rounded-corners">
-                  <div className="w-100 h-100 d-flex justify-content-center align-items-center flex-column pos-rel">
-                    <div className="cover-img d-flex justify-content-center align-items-center rounded-corners-top">
-                      <img
-                        src={user?.coverImage}
-                        alt=""
-                        className="rounded-corners-top w-100 h-100"
-                      />
-                    </div>
-                    <div className="dets d-flex justify-content-center align-items-center rounded-corners-bottom flex-column">
-                      <h3 className="mt-4 mb-2">{user?.name}</h3>
-                      <h6>{user?.occupation}</h6>
-                    </div>
-                    <div className="profile-img">
-                      {user?.profilePicture && (
-                        <img
-                          src={user?.profilePicture}
-                          alt="Profile Picture"
-                          className="dp w-100 h-100 feed-up"
-                        />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <CommonProfile>
               <CreatePost />
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common mt-4">
                 {posts.map((post, index) => (
                   <SinglePost key={index} post={post} />
                 ))}
               </div>
-            </div>
+            </CommonProfile>
             <div className="col-md-3 right-col-feed px-3 d-flex justify-content-center">
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common">
                 <div className="middle-content h-auto w-100 py-4 d-flex justify-content-center align-itmes-center">
