@@ -7,6 +7,15 @@ import { faMessage } from "@fortawesome/free-solid-svg-icons";
 import { Posts } from "../../../../models/Posts";
 import { AdminService } from "../../../../services/AdminService";
 import { User } from "../../../../models/User";
+import { environment } from "../../../../environment/environment";
+import { FormFeedback, Form, Input } from "reactstrap";
+import { Field, useFormik } from "formik";
+import * as Yup from "yup";
+import { faBriefcase } from "@fortawesome/free-solid-svg-icons";
+import { PublicService } from "../../../../services/PublicService";
+import swal from "sweetalert";
+import { PostsService } from "../../../../services/PostsService";
+import CommentPosted from "./Comment";
 
 interface SinglePostProps {
   post: Posts;
@@ -22,6 +31,7 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
     useState<string>("");
   const [postOwnerProfilePicture, setPostOwnerProfilePicture] =
     useState<string>("");
+  const [commentsArray, setCommentsArray] = useState<any[]>([]);
   const handleCommentBtnClick = () => {
     setIsCommentBtnClicked(!isCommentBtnClicked);
     setIsCommentSent(false);
@@ -37,7 +47,7 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
         console.log(res.data, "is the post owner");
         setPostOwner(res.data);
         if (res.data?.profilePicture) {
-          const baseUrl = "http://localhost:9000";
+          const baseUrl = environment.api_url;
           const absoluteUrl = `${baseUrl}/${res.data.profilePicture}`;
           console.log("Absolute URL:", absoluteUrl);
           setPostOwnerProfilePicture(absoluteUrl);
@@ -47,6 +57,16 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
 
     const postTimeElapsed = calculateTimeElapsed(post.createdAt);
     setTimeElapsedAfterPosting(postTimeElapsed);
+
+    PostsService.getPostsByPostId(post._id)
+      .then((res) => {
+        console.log("res", res);
+        console.log("comments array", res.data.commentsFrom);
+        setCommentsArray(res.data.commentsFrom);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
   }, []);
 
   function calculateTimeElapsed(dateString: string | number | Date) {
@@ -69,6 +89,56 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
       return "Just now";
     }
   }
+  const handleCommentSending = async (data: any) => {
+    console.log("inside handleCommentSending : data", data);
+    if (data) {
+      console.log("data is available: inside if", data);
+      try {
+        console.log("inside try");
+
+        const res = await PostsService.putComment(post._id, user?._id, data);
+        console.log("res:::::", res);
+
+        if (res.success) {
+          console.log("inside res.success");
+        } else {
+          swal({
+            title: "Error",
+            text: res.error,
+            icon: "error",
+          });
+          console.log("error======", res.error);
+        }
+      } catch (error) {
+        swal({
+          title: "Error",
+          text: "An error occurred. Please try again later.",
+          icon: "error",
+        });
+        console.log("error++++++", error);
+      }
+    }
+  };
+  const validationStep = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      text: "",
+    },
+
+    onSubmit: async (values: any, { resetForm }) => {
+      console.log("inside validationStep onSubmit");
+      console.log("values", values);
+      const userData = {
+        text: values.text,
+      };
+
+      console.log("userData before handleCommentSending:::::", userData);
+
+      handleCommentSending(userData);
+
+      resetForm();
+    },
+  });
 
   return (
     <div className="middle-content h-auto w-100 py-4 d-flex justify-content-center align-itmes-center px-2 repeating-section-for-posts">
@@ -138,25 +208,49 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
                   />
                 </div>
                 <div className="col-md-9 d-flex justify-content-center align-items-center px-0 ml-2">
-                  <form action="" className="w-100 d-flex align-items-center">
-                    <input
-                      type="text"
-                      className="rounded-input w-100"
-                      placeholder="Leave a comment..."
-                      onChange={(e) => {
-                        console.log(e.target.value);
-                      }}
-                    />
+                  <Form
+                    className="w-100 d-flex align-items-center"
+                    onSubmit={(e) => {
+                      console.log("e", e);
+                      e.preventDefault();
 
+                      validationStep.handleSubmit();
+
+                      return false;
+                    }}
+                    // encType="multipart/form-data"
+                  >
+                    <Input
+                      id="text"
+                      name="text"
+                      className="form-control rounded-input w-100"
+                      placeholder="Enter your comment"
+                      type="text"
+                      value={validationStep.values.text}
+                      onChange={validationStep.handleChange}
+                      onBlur={validationStep.handleBlur}
+                      invalid={
+                        validationStep.touched.text &&
+                        validationStep.errors.text
+                          ? true
+                          : false
+                      }
+                    />
+                    {validationStep.touched.text &&
+                    validationStep.errors.text ? (
+                      <FormFeedback type="invalid">
+                        {validationStep.errors.text}
+                      </FormFeedback>
+                    ) : null}
                     <button
                       className="btn comment-send-btn d-flex justify-content-center align-items-center"
-                      type="button"
+                      type="submit"
                       onClick={handleCommentSendBtnClick}
                     >
                       Send
                       <span className="fas fa-chevron-right ml-1"></span>
                     </button>
-                  </form>
+                  </Form>
                 </div>
               </div>
             </div>
@@ -164,53 +258,17 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
 
           <div
             className={` ${
-              isCommentSent
-                ? "w-100 h-auto d-flex flex-column justify-content-center align-items-center"
+              // isCommentSent
+              1 == 1
+                ? `w-100 h-auto d-flex flex-column justify-content-center align-items-center set-ovrflw-y ${
+                    commentsArray.length !== 0 ? "padding-top-50" : ""
+                  }`
                 : "hidden"
             }`}
           >
-            <div className="w-100 h-auto d-flex flex-column justify-content-center align-items-center mt-3">
-              <div className="row w-100">
-                <div className="col-md-2 d-flex justify-content-center align-items-center w-100 h-auto remove-right-padding">
-                  <img
-                    src={user?.profilePicture}
-                    alt=""
-                    className="dp-comment"
-                  />
-                </div>
-                <div className="col-md-8 px-1 d-flex justify-content-center align-items-center remove-left-padding">
-                  <div className="w-100 h-auto p-2 d-flex flex-column justify-content-center align-items-start comment-body-container">
-                    <div className="name">
-                      <p className="bold">Anju Perera</p>
-                    </div>
-                    <div className="comment-body">
-                      <p>This is a comment</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="w-100 h-auto d-flex flex-column justify-content-center align-items-center mt-3">
-              <div className="row w-100">
-                <div className="col-md-2 d-flex justify-content-center align-items-center w-100 h-auto remove-right-padding">
-                  <img
-                    src={user?.profilePicture}
-                    alt=""
-                    className="dp-comment"
-                  />
-                </div>
-                <div className="col-md-8 px-1 d-flex justify-content-center align-items-center remove-left-padding">
-                  <div className="w-100 h-auto p-2 d-flex flex-column justify-content-center align-items-start comment-body-container">
-                    <div className="name">
-                      <p className="bold">Anju Perera</p>
-                    </div>
-                    <div className="comment-body">
-                      <p>This is a comment</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {commentsArray.map((comment, index) => (
+              <CommentPosted comment={comment} key={index} />
+            ))}
           </div>
         </div>
       </div>

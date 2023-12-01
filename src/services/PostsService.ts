@@ -21,6 +21,10 @@ export class PostsService {
     const url = Util.apiAuthUrl(`post/${postId}/like/${userId}`);
     return await axios.post<Partial<any>, AppResponse<any>>(url);
   }
+      public static async putComment(postId: any , userId: any , data:any): Promise<AppResponse<any>> {
+    const url = Util.apiAuthUrl(`post/${postId}/comment/${userId}`);
+    return await axios.post<Partial<any>, AppResponse<any>>(url, data);
+  }
       public static async sendPost(data:Partial<any>, userId:any): Promise<AppResponse<any>> {
     const url = Util.apiAuthUrl(`post/create?id=${userId}`);
     return await axios.post<Partial<any>, AppResponse<any>>(url,data);

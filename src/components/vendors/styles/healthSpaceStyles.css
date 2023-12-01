@@ -3214,3 +3214,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .navbar-logo{
   height: 50px;
 }
+
+.set-ovrflw-y{
+  max-height: 174px;
+  overflow-y: auto;
+}
+
+.padding-top-50{
+  padding-top: 50px;
+}
