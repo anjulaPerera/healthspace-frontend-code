@@ -6,7 +6,7 @@ import swal from "sweetalert";
 import { RouteName } from "../../RouteName";
 import "../vendors/styles/healthSpaceStyles.css";
 import loginImageLeft from "../../components/vendors/images/loginImageLeft.svg";
-import loginImageRight from "../../components/vendors/images/loginImageRight.svg";
+import loginImageRight from "../../components/vendors/images/loginImageRight.jpg";
 import loginCardImage from "../../components/vendors/images/loginCardImage.svg";
 import userIconLogin from "../../components/vendors/images/userIconLogin.svg";
 import emailIconLogin from "../../components/vendors/images/emailIconLogin.svg";
@@ -15,8 +15,12 @@ import { LoginData } from "../../models/LoginModel";
 import RightArrow from "../vendors/images/icon/right-arrow.png";
 import CustomModal from "./Modal";
 import { PublicService } from "../../services/PublicService";
-import Logo from "../vendors/images/icon/logo2.png";
+import Logo from "../vendors/images/logo-text.png";
 import { AdminService } from "../../services/AdminService";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
+import rightBg from "../../components/vendors/images/right-bg.jpg";
+
 const Login: React.FC = () => {
   const token = AuthService.getToken();
   const history = useHistory();
@@ -128,10 +132,7 @@ const Login: React.FC = () => {
   return (
     <>
       <div className="login-page">
-        <div className="left-bg">
-          <img src={loginImageLeft} alt="Left Background" />
-        </div>
-        <div className="right-bg">
+        <div className="all-bg">
           <img src={loginImageRight} alt="Right Background" />
         </div>
 
@@ -144,8 +145,8 @@ const Login: React.FC = () => {
                     <NavLink to={"/login"}>
                       <img
                         src={Logo}
-                        className="main-logo"
-                        alt="cricView360_logo"
+                        className="main-logo w-100"
+                        alt="healthspace_logo"
                       />
                     </NavLink>
                   </div>
@@ -153,9 +154,8 @@ const Login: React.FC = () => {
                     <p className="mb-1 h-1 text-center login-header">Login</p>
 
                     <div className="textbox mt-5">
-                      <img
-                        src={emailIconLogin}
-                        alt="Input Icon"
+                      <FontAwesomeIcon
+                        icon={faEnvelope}
                         className="input-icon"
                       />
                       <input
@@ -166,11 +166,7 @@ const Login: React.FC = () => {
                       />
                     </div>
                     <div className="textbox mt-3">
-                      <img
-                        src={userLoginPasswordIcon}
-                        alt="Input Icon"
-                        className="input-icon"
-                      />
+                      <FontAwesomeIcon icon={faKey} className="input-icon" />
                       <input
                         type="password"
                         placeholder="Password"
@@ -196,7 +192,7 @@ const Login: React.FC = () => {
                     <div className="d-lg-flex justify-content-center mt-4 mb-5">
                       <button className="login-btn" type="submit">
                         Login
-                        <span className="fas fa-chevron-right ml-1"></span>
+                        <span className="fas fa-chevron-right ml-1 login-span text-white"></span>
                       </button>
                     </div>
                     <div className="d-flex justify-content-center mt-5">
@@ -220,7 +216,7 @@ const Login: React.FC = () => {
               </div>
             </div>
             <div className=" box-2 d-flex flex-column h-100">
-              <img src={loginCardImage} alt="Right Background" />
+              <img src={rightBg} alt="Right Background" />{" "}
             </div>
           </div>
         </div>

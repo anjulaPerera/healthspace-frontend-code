@@ -34,6 +34,11 @@ const SignUp: React.FC = () => {
   const [otp, setOtp] = useState("");
   const [otpAttempts, setOtpAttempts] = useState(3);
   const [currentStep, setCurrentStep] = useState(1);
+  const [acceptAgreement, setAcceptAgreement] = useState(false);
+
+  const handleAcceptAgreementChange = () => {
+    setAcceptAgreement(!acceptAgreement);
+  };
 
   const nextStep = () => {
     validationStep.validateForm().then((errors) => {
@@ -238,7 +243,15 @@ const SignUp: React.FC = () => {
       console.log("userData before handleSignUp:::::", userData);
 
       try {
-        await handleSignUp(userData);
+        if (acceptAgreement) {
+          handleSignUp(userData);
+        } else {
+          swal({
+            title: "Error",
+            text: "Please accept the terms and conditions",
+            icon: "error",
+          });
+        }
 
         resetForm();
       } catch (error) {
@@ -590,27 +603,7 @@ const SignUp: React.FC = () => {
                               </FormFeedback>
                             ) : null}
                           </div>
-                          {/* <div className="textbox2 mb-3">
-                            <img
-                              src={emailIconLogin}
-                              alt="Input Icon"
-                              className="input-icon"
-                            />
-                            <input
-                              id="profilePicture"
-                              name="profilePicture"
-                              type="file"
-                              onChange={(e) =>
-                                handleFileChange(e, "profilePicture")
-                              }
-                            />
-                            {validationStep.touched.profilePicture &&
-                            validationStep.errors.profilePicture ? (
-                              <FormFeedback type="invalid">
-                                {validationStep.errors.profilePicture}
-                              </FormFeedback>
-                            ) : null}
-                          </div> */}
+
                           <div className="textbox2 mb-3">
                             <div className="custom-file">
                               <input
@@ -639,27 +632,7 @@ const SignUp: React.FC = () => {
                               ) : null}
                             </div>
                           </div>
-                          {/* <div className="textbox2 mb-3">
-                            <img
-                              src={emailIconLogin}
-                              alt="Input Icon"
-                              className="input-icon"
-                            />
-                            <input
-                              id="coverImage"
-                              name="coverImage"
-                              type="file"
-                              onChange={(e) =>
-                                handleFileChange(e, "coverImage")
-                              }
-                            />
-                            {validationStep.touched.coverImage &&
-                            validationStep.errors.coverImage ? (
-                              <FormFeedback type="invalid">
-                                {validationStep.errors.coverImage}
-                              </FormFeedback>
-                            ) : null}
-                          </div> */}
+
                           <div className="textbox2 mb-3">
                             <div className="custom-file">
                               <input
@@ -759,6 +732,23 @@ const SignUp: React.FC = () => {
                                   *If you select "Seeking Donations", you will
                                   be asked for a confirmation
                                 </p>
+                                <div className="form-check mb-3">
+                                  <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    id="acceptAgreement"
+                                    checked={acceptAgreement}
+                                    onChange={handleAcceptAgreementChange}
+                                  />
+                                  <label
+                                    className="form-check-label"
+                                    htmlFor="acceptAgreement"
+                                  >
+                                    I accept the terms and conditions
+                                  </label>
+                                  {/* Add validation message if needed */}
+                                  {/* {acceptAgreementError && <div className="invalid-feedback">{acceptAgreementError}</div>} */}
+                                </div>
                               </>
                             )}
                           </div>

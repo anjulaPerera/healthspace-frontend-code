@@ -196,6 +196,10 @@
   padding: 8px 0;
   margin: 8px 0;
   border-bottom: 0.7px solid #656565;
+  display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .textbox2 {
@@ -3202,4 +3206,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .form-control.pr-0{
   width: 92% !important;
+}
+
+.fas.fa-chevron-right.ml-1.login-span.text-white{
+  color: white !important;
 }
