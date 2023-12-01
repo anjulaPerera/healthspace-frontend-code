@@ -11,6 +11,7 @@ interface LikeButtonProps {
 const LikeButton: React.FC<LikeButtonProps> = ({ likesFrom, postId }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [user] = useContext(UserContext);
+  // const [currentLikesCount, setCurrentLikesCount] = useState(0);
   const [likesCount, setLikesCount] = useState(0);
 
   useEffect(() => {
@@ -19,6 +20,16 @@ const LikeButton: React.FC<LikeButtonProps> = ({ likesFrom, postId }) => {
     } else {
       setIsLiked(false);
     }
+
+    PostsService.getPostsByPostId(postId)
+      .then((res) => {
+        setLikesCount(res.data.likesFrom.length);
+        console.log("getting post by post id", res.data);
+        console.log("getting post LIKES by post id", res.data.likesFrom.length);
+      })
+      .catch((err) => {
+        console.log("getting post by post id ERROR", err);
+      });
   }, [user]);
 
   const handleLikeClick = () => {
@@ -28,7 +39,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ likesFrom, postId }) => {
       .then((res) => {
         console.log(res);
         setIsLiked(!isLiked);
-        setLikesCount(res.data.likesFrom.length);
+        setLikesCount(likesCount + 1);
       })
       .catch((err) => {
         console.log(err);

@@ -655,7 +655,7 @@ const SignUp: React.FC = () => {
                                   ? validationStep.errors.coverImage
                                   : validationStep.values.coverImage
                                   ? validationStep.values.coverImage.name
-                                  : "Choose profile picture..."}
+                                  : "Choose cover image..."}
                               </label>
                               {validationStep.touched.coverImage &&
                               validationStep.errors.coverImage ? (
