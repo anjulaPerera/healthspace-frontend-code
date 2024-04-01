@@ -64,6 +64,11 @@ const Login: React.FC = () => {
     } else if (loginRequestState === RequestState.FAILED) {
       swal({ title: "User login fail!", icon: "error" });
     }
+    // else if (loginRequestState === RequestState.SUCCESS) {
+    //   if (token || loginRequestState === RequestState.SUCCESS) {
+    //     verifyUser();
+    //   }
+    // }
   }, [loginRequestState]);
 
   const handleChange = (event: any) => {
@@ -90,13 +95,14 @@ const Login: React.FC = () => {
       const res = await AuthService.getMe();
       if (res.success) {
         const { userType, userStatus, isVerified, _id } = res.data;
+        console.log("userType", userType);
         if (userStatus === "ACTIVE") {
           switch (userType) {
             case "SUPER_ADMIN":
               history.push(RouteName.ADMIN_USER_MANAGEMENT);
               break;
-            case "LEVEL01":
-            case "LEVEL02":
+            case "RECEIVER":
+            case "DONOR":
               history.push(RouteName.ADMIN_MAIN_DASHBOARD);
               break;
             default:

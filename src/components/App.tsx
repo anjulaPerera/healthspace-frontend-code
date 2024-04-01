@@ -79,10 +79,10 @@ const App: React.FC = () => {
                       </VerifyRole>
                     </Route>
                     <Route path="/hs">
-                      {/* <VerifyRole allow={[Role.LEVEL01]}>
+                      {/* <VerifyRole allow={[Role.DONOR]}>
                         <DonorRouter />
                       </VerifyRole> */}
-                      <VerifyRole allow={[Role.LEVEL02]}>
+                      <VerifyRole allow={[Role.RECEIVER]}>
                         <PatientRouter />
                       </VerifyRole>
                     </Route>

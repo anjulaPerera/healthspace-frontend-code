@@ -39,8 +39,11 @@ const Auth: React.FC = ({ children }) => {
       setUserRequestState(RequestState.LOADING);
       AuthService.getMe()
         .then((res) => {
+          console.log("line check 1");
+
           if (res.success) {
             setUser(res.data);
+            console.log("line check 2");
             res.data?.userType === "SUPER_ADMIN"
               ? history.push(`/admin/user-management`)
               : history.push(`/hs/home`);

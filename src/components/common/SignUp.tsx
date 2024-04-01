@@ -682,14 +682,14 @@ const SignUp: React.FC = () => {
                                   >
                                     <label className="form-check-label">
                                       <Input
-                                        id="LEVEL01"
+                                        id="RECEIVER"
                                         name="userType"
                                         className="form-check-input"
                                         type="radio"
-                                        value="LEVEL01"
+                                        value="RECEIVER"
                                         checked={
                                           validationStep.values.userType ===
-                                          "LEVEL01"
+                                          "RECEIVER"
                                         }
                                         onChange={validationStep.handleChange}
                                         onBlur={validationStep.handleBlur}
@@ -704,14 +704,14 @@ const SignUp: React.FC = () => {
                                     </label>
                                     <label className="form-check-label">
                                       <Input
-                                        id="LEVEL02"
+                                        id="DONOR"
                                         name="userType"
                                         className="form-check-input"
                                         type="radio"
-                                        value="LEVEL02"
+                                        value="DONOR"
                                         checked={
                                           validationStep.values.userType ===
-                                          "LEVEL02"
+                                          "DONOR"
                                         }
                                         onChange={validationStep.handleChange}
                                         onBlur={validationStep.handleBlur}

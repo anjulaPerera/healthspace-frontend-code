@@ -1,5 +1,5 @@
 export enum Role {
     SUPER_ADMIN = "SUPER_ADMIN",
-    LEVEL01 ="LEVEL01",
-    LEVEL02 ="LEVEL02",
+    RECEIVER ="RECEIVER", //LEVEL01
+    DONOR ="DONOR",  //LEVEL02
 }
