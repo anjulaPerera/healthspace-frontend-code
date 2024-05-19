@@ -145,14 +145,14 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
       <div className="w-100 rounded-corners p-2 h-auto d-flex justify-content-center align-items-center p-3 feed-component-common flex-column ">
         <div className="w-100 rounded-corners p-2 h-auto d-flex justify-content-center align-items-center p-3 feed-component-common flex-column mb-2">
           <div className="row w-100 d-flex">
-            <div className="col-md-2 remove-right-padding">
+            <div className="col-md-2 remove-right-padding remove-left-padding">
               {" "}
-              <img src={postOwnerProfilePicture} alt="" className="search-dp" />
+              <img src={user?.profilePicture} alt="" className="search-dp" />
             </div>
             <div className="col-md-10 remove-left-padding">
-              <div className="row w-auto d-flex flex-column">
-                <p className="name-post">{postOwner?.name}</p>
-                <p className="job-post">{postOwner?.occupation}</p>
+              <div className="row w-auto d-flex flex-column ml-2">
+                <p className="name-post">{user?.name}</p>
+                <p className="job-post">{user?.occupation}</p>
                 <p className="time-post">{timeElapsedAfterPosting}</p>
               </div>
             </div>
@@ -164,7 +164,7 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
             </div>
           </div>
           <div className="row w-100 px-2 d-flex justify-content-left align-items-center">
-            <p className="post-text">{post.content}</p>
+            <p className="post-text">{post?.content}</p>
           </div>
         </div>
         <div className="w-100 rounded-corners p-2 h-auto d-flex justify-content-center align-items-center p-3 feed-component-common flex-column mb-2">

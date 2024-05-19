@@ -27,6 +27,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import FontAwesome from "react-fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CustomModal from "./Modal";
 
 const SignUp: React.FC = () => {
   const history = useHistory();
@@ -34,10 +35,17 @@ const SignUp: React.FC = () => {
   const [otp, setOtp] = useState("");
   const [otpAttempts, setOtpAttempts] = useState(3);
   const [currentStep, setCurrentStep] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [acceptAgreement, setAcceptAgreement] = useState(false);
 
   const handleAcceptAgreementChange = () => {
     setAcceptAgreement(!acceptAgreement);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
   };
 
   const nextStep = () => {
@@ -734,7 +742,13 @@ const SignUp: React.FC = () => {
                                 </div>
                                 <p className="fs-12">
                                   *If you select "Seeking Donations", you will
-                                  be asked for a confirmation
+                                  be asked for a confirmation{" "}
+                                  <div
+                                    className="terms"
+                                    onClick={handleOpenModal}
+                                  >
+                                    Terms & Conditions
+                                  </div>
                                 </p>
                                 <div className="form-check mb-3">
                                   <input
@@ -828,6 +842,110 @@ const SignUp: React.FC = () => {
           </div>
         </div>
       </div>
+      <CustomModal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <div className="py-3 px-3 terms-modal">
+          <h3>Terms and Conditions</h3>
+          <br />
+          <p>
+            <em>Last Updated: May 18, 2024</em>
+          </p>
+          <br />
+          <p>
+            Welcome to HealthSpace. By accessing or using our website, you agree
+            to comply with and be bound by the following terms and conditions.
+            Please read them carefully before using our site.
+          </p>
+          <br />
+          <h5>1. Acceptance of Terms</h5>
+          <p>
+            By using HealthSpace (the "Site"), you agree to abide by these terms
+            and conditions (the "Terms"). If you do not agree with these Terms,
+            please do not use the Site.
+          </p>
+          <br />
+          <h5>2. Use of the Site</h5>
+          <p>
+            HealthSpace is a platform designed to facilitate donations within
+            the health sector. The Site is provided for informational purposes
+            and to support health-related charitable activities.
+          </p>
+          <br />
+          <h5>3. No Security Measures</h5>
+          <p>
+            HealthSpace does not implement any security measures to protect user
+            information or transactions. Users should be aware that their
+            personal data, including payment details, may not be secure. By
+            using this Site, you acknowledge and accept the risks associated
+            with providing your information.
+          </p>
+          <br />
+          <h5>4. Donations</h5>
+          <p>
+            All donations made through HealthSpace are voluntary and
+            non-refundable. Users are responsible for ensuring the accuracy of
+            their donation details. HealthSpace does not guarantee the security
+            or successful completion of any transaction.
+          </p>
+          <br />
+          <h5>5. User Responsibilities</h5>
+          <p>
+            Users are responsible for maintaining the confidentiality of their
+            account information and for all activities that occur under their
+            account. HealthSpace is not liable for any loss or damage arising
+            from your failure to protect your account information.
+          </p>
+          <br />
+          <h5>6. Third-Party Links</h5>
+          <p>
+            HealthSpace may contain links to third-party websites. These links
+            are provided for convenience only, and HealthSpace does not endorse
+            or assume any responsibility for the content or practices of any
+            third-party sites.
+          </p>
+          <br />
+          <h5>7. Limitation of Liability</h5>
+          <p>
+            HealthSpace shall not be liable for any direct, indirect,
+            incidental, special, or consequential damages resulting from the use
+            or the inability to use the Site or any content, services, or
+            products obtained through the Site.
+          </p>
+          <br />
+          <h5>8. Indemnification</h5>
+          <p>
+            You agree to indemnify, defend, and hold harmless HealthSpace, its
+            officers, directors, employees, and agents from any claims,
+            liabilities, damages, and expenses arising out of your use of the
+            Site or your violation of these Terms.
+          </p>
+          <br />
+          <h5>9. Changes to Terms</h5>
+          <p>
+            HealthSpace reserves the right to modify these Terms at any time.
+            Any changes will be effective immediately upon posting on the Site.
+            Your continued use of the Site after any changes constitutes your
+            acceptance of the new Terms.
+          </p>
+          <br />
+          <h5>10. Governing Law</h5>
+          <p>
+            These Terms shall be governed by and construed in accordance with
+            the laws of [Your Jurisdiction], without regard to its conflict of
+            law principles.
+          </p>
+          <br />
+          <h5>11. Contact Information</h5>
+          <p>
+            If you have any questions about these Terms, please contact us at
+            healthspace@org.com
+          </p>
+          <br />
+          <p>
+            By using HealthSpace, you acknowledge that you have read,
+            understood, and agree to be bound by these Terms and Conditions.
+          </p>
+        </div>
+      </CustomModal>
     </>
   );
 };

@@ -83,14 +83,14 @@ const NavBar: React.FC = () => {
   };
   return (
     <div className="header">
-      <div className="header-left">
+      {/* <div className="header-left">
         <div
           className="menu-icon ti ti-menu-alt mr-2"
           onClick={toggleMenu}
         ></div>
-      </div>
+      </div> */}
       {user?.userType === Role.SUPER_ADMIN ? null : (
-        <div className="header-right d-flex justify-content-between align-items-center flex-wrap pad-right-nav pad-left-nav">
+        <div className="header-right d-flex justify-content-between align-items-center flex-wrap px-4 w-100">
           <div className="d-flex justify-content-start align-items-center header-container-left">
             <NavLink to="/hs/home">
               <div className="w-100 h-100">

@@ -11,6 +11,7 @@ import * as Yup from "yup";
 
 const CreatePost: React.FC = () => {
   const [user] = useContext(UserContext);
+  const [refreshPage, setRefreshPage] = useState<boolean>(false);
 
   const handlePostSend = async (data: any) => {
     console.log("inside handlesignUp : data", data);
@@ -78,6 +79,7 @@ const CreatePost: React.FC = () => {
         await handlePostSend(postData);
 
         resetForm();
+        setRefreshPage(!refreshPage);
       } catch (error) {
         swal({
           title: "Error",
@@ -88,6 +90,7 @@ const CreatePost: React.FC = () => {
       }
     },
   });
+  useEffect(() => {}, [refreshPage]);
 
   return (
     <>

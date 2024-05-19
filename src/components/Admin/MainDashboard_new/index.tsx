@@ -67,12 +67,12 @@ const Feed: React.FC = () => {
   return (
     <>
       <div className="full-screen">
-        <div className="feed-container container px-14rem mt-5rem">
-          <div className="row align-items-start">
-            <div className="col-md-2 left-col-feed px-3 d-flex justify-content-center">
+        <div className="feed-container container px-10rem mt-5rem">
+          <div className="row justify-content-center">
+            <div className="w-auto left-col-feed px-3 d-flex justify-content-center">
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common">
-                <div className="middle-content h-auto w-100 py-4 d-flex justify-content-center align-itmes-center">
-                  Left Section
+                <div className="px-2 pt-2 align-items-center justify-content-center">
+                  <p>Left Section!</p>
                 </div>
               </div>
             </div>
@@ -84,9 +84,9 @@ const Feed: React.FC = () => {
                 ))}
               </div>
             </CommonProfile>
-            <div className="col-md-3 right-col-feed px-3 d-flex justify-content-center">
+            <div className="w-auto right-col-feed px-3 d-flex justify-content-center">
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common">
-                <div className="middle-content h-auto w-100 py-4 d-flex justify-content-center align-itmes-center">
+                <div className="px-2 pt-2 align-items-center justify-content-center">
                   right section
                 </div>
               </div>

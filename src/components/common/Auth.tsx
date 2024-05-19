@@ -10,7 +10,7 @@ import { RouteName } from "../../RouteName";
 import "../vendors/styles/core.css";
 import "../vendors/styles/style.css";
 import "../vendors/styles/icon-font.css";
-import logo from "../../components/vendors/images/logo.svg";
+import logo from "../../components/vendors/images/logo-text.png";
 import { AdminService } from "../../services/AdminService";
 
 const Auth: React.FC = ({ children }) => {
