@@ -8,6 +8,7 @@ html {
 }
 
 html {
+  text-size-adjust: none;
   -webkit-text-size-adjust: none;
   -moz-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -5074,9 +5075,6 @@ body.IE .register-page-wrap .container {
 }
 
 @media (min-width: 1301px) and (max-width: 1400px) {
-  .header {
-    width: calc(100% - 250px);
-  }
 
   .brand-logo,
   .left-side-bar {
@@ -5400,6 +5398,7 @@ body.IE .register-page-wrap .container {
     padding-left: 15px !important;
     padding-right: 0px !important;
   }
+
   .div2 {
     padding-left: 15px !important;
   }

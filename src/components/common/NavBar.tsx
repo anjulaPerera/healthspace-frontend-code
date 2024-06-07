@@ -30,12 +30,14 @@ import Dp from "../vendors/images/photo4.jpg";
 import { environment } from "../../environment/environment";
 
 const NavBar: React.FC = () => {
-  const [user, setUser] = useContext(UserContext);
+  // const [user, setUser] = useContext(UserContext);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useContext(MenuContext);
   const [reload, setReload] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const history = useHistory();
+  const [user] = useContext(UserContext);
+  const [profilePicture, setProfilePicture] = useState<string | undefined>();
 
   const toggleDropdown = () => {
     setDropdownVisible(!isDropdownVisible);
@@ -55,27 +57,26 @@ const NavBar: React.FC = () => {
   };
 
   useEffect(() => {
-    AdminService.getUserById(user?._id).then((res) => {
-      console.log("res", res.data);
-      const userData: User = res.data;
+    // AdminService.getUserById(user?._id).then((res) => {
+    //   console.log("res", res.data);
+    //   const userData: User = res.data;
 
-      if (userData?.profilePicture) {
-        const baseUrl = environment.api_url;
-        const absoluteUrl = `${baseUrl}/${userData.profilePicture}`;
-        console.log("Absolute URL:", absoluteUrl);
-        userData.profilePicture = absoluteUrl;
-      }
+    if (user?.profilePicture) {
+      const baseUrl = environment.api_url;
+      const absoluteUrl = `${baseUrl}/${user.profilePicture}`;
+      console.log("Absolute URL:", absoluteUrl);
+      setProfilePicture(absoluteUrl);
+    }
 
-      if (userData?.coverImage) {
-        const baseUrl = environment.api_url;
-        const absoluteUrl = `${baseUrl}/${userData.coverImage}`;
-        console.log("Absolute URL:", absoluteUrl);
-        userData.coverImage = absoluteUrl;
-      }
+    // if (userData?.coverImage) {
+    //   const baseUrl = environment.api_url;
+    //   const absoluteUrl = `${baseUrl}/${userData.coverImage}`;
+    //   console.log("Absolute URL:", absoluteUrl);
+    //   userData.coverImage = absoluteUrl;
+    // }
 
-      setUser(userData);
-      setReload(false);
-    });
+    //     setReload(false);
+    // });
   }, [reload]);
 
   const handleProfileClick = () => {
@@ -95,6 +96,7 @@ const NavBar: React.FC = () => {
             <NavLink to="/hs/home">
               <div className="w-100 h-100">
                 <img src={logo_png} alt="logo" className="navbar-logo" />
+                {/* <p>{profilePicture}</p> */}
               </div>
             </NavLink>
           </div>
@@ -103,7 +105,8 @@ const NavBar: React.FC = () => {
               className="d-flex flex-column justify-content-center align-items-center margin-left-nav-items pos-rel myself cursor-pointer"
               onClick={toggleDropdown}
             >
-              <img src={user?.profilePicture} alt="" className="nav-dp" />
+              <img src={profilePicture} alt="" className="nav-dp" />
+
               <div className="d-flex justify-centent-center align-items-center">
                 <span className="user-name fs-nav">{user?.name}</span>{" "}
                 <div onClick={handleClick}>

@@ -32,6 +32,7 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
   const [postOwnerProfilePicture, setPostOwnerProfilePicture] =
     useState<string>("");
   const [commentsArray, setCommentsArray] = useState<any[]>([]);
+  const [reload, setReload] = useState<boolean>(false);
   const handleCommentBtnClick = () => {
     setIsCommentBtnClicked(!isCommentBtnClicked);
     setIsCommentSent(false);
@@ -40,6 +41,16 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
   const handleCommentSendBtnClick = () => {
     setIsCommentSent(!isCommentSent);
   };
+  const [profilePicture, setProfilePicture] = useState<string | undefined>();
+
+  useEffect(() => {
+    if (user?.profilePicture) {
+      const baseUrl = environment.api_url;
+      const absoluteUrl = `${baseUrl}/${user.profilePicture}`;
+      console.log("Absolute URL:", absoluteUrl);
+      setProfilePicture(absoluteUrl);
+    }
+  }, []);
 
   useEffect(() => {
     AdminService.getUserById(post?.userId)
@@ -67,7 +78,7 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
       .catch((err) => {
         console.log("err", err);
       });
-  }, []);
+  }, [post._id, post.createdAt, post?.userId, reload]);
 
   function calculateTimeElapsed(dateString: string | number | Date) {
     const currentDate = new Date();
@@ -135,6 +146,7 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
       console.log("userData before handleCommentSending:::::", userData);
 
       handleCommentSending(userData);
+      setReload(true);
 
       resetForm();
     },
@@ -147,12 +159,12 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
           <div className="row w-100 d-flex">
             <div className="col-md-2 remove-right-padding remove-left-padding">
               {" "}
-              <img src={user?.profilePicture} alt="" className="search-dp" />
+              <img src={postOwnerProfilePicture} alt="" className="search-dp" />
             </div>
             <div className="col-md-10 remove-left-padding">
               <div className="row w-auto d-flex flex-column ml-2">
-                <p className="name-post">{user?.name}</p>
-                <p className="job-post">{user?.occupation}</p>
+                <p className="name-post">{postOwner?.name}</p>
+                <p className="job-post">{postOwner?.occupation}</p>
                 <p className="time-post">{timeElapsedAfterPosting}</p>
               </div>
             </div>
@@ -201,11 +213,7 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
             <div className="w-100 d-flex justify-content-center align-itmes-center comment-write">
               <div className="row w-100">
                 <div className="col-md-1 d-flex justify-content-center align-itmes-center px-0">
-                  <img
-                    src={user?.profilePicture}
-                    alt=""
-                    className="comment-dp"
-                  />
+                  <img src={profilePicture} alt="" className="comment-dp" />
                 </div>
                 <div className="col-md-9 d-flex justify-content-center align-items-center px-0 ml-2">
                   <Form

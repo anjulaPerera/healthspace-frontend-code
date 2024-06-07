@@ -1,29 +1,28 @@
 import React, { useEffect, useState, useContext } from "react";
 import "../../vendors/styles/healthSpaceStyles.css";
-import RightArrow from "../../vendors/images/icon/right-arrow.png";
-import Crick1 from "../../vendors/images/crick1.png";
-import UserContext from "../../../context/UserContext";
-import { NavLink, useHistory } from "react-router-dom";
-import CoverImg from "../../vendors/images/img2.jpg";
-import Dp from "../../vendors/images/photo4.jpg";
-import {
-  faAngleUp,
-  faMessage,
-  faPlay,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
-import { FaComment } from "react-icons/fa";
-import SinglePost from "../MainDashboard_new/components/SinglePost";
-import Chats from "./Chats";
-import CreatePost from "../MainDashboard_new/components/CreatePost";
-import { Posts } from "../../../models/Posts";
-import { PostsService } from "../../../services/PostsService";
+import UserContext from "../../../context/UserContext";
+import { environment } from "../../../environment/environment";
 
 const CommonProfile: React.FC = ({ children }) => {
   const [user] = useContext(UserContext);
-  useState<boolean>(false);
+  const [profilePicture, setProfilePicture] = useState<string | undefined>();
+  const [coverImage, setCoverImage] = useState<string | undefined>();
+
+  useEffect(() => {
+    if (user?.profilePicture) {
+      const baseUrl = environment.api_url;
+      const absoluteUrl = `${baseUrl}/${user.profilePicture}`;
+      console.log("Absolute URL:", absoluteUrl);
+      setProfilePicture(absoluteUrl);
+    }
+    if (user?.coverImage) {
+      const baseUrl = environment.api_url;
+      const absoluteUrlC = `${baseUrl}/${user.coverImage}`;
+      console.log("Absolute URL:", absoluteUrlC);
+      setCoverImage(absoluteUrlC);
+    }
+  }, []);
   return (
     <>
       <div className="col-md-7 middle-col-feed px-3 d-flex justify-content-center flex-column">
@@ -32,7 +31,7 @@ const CommonProfile: React.FC = ({ children }) => {
             <div className="w-100 h-100 d-flex justify-content-center align-items-center flex-column pos-rel">
               <div className="cover-img d-flex justify-content-center align-items-center rounded-corners-top">
                 <img
-                  src={user?.coverImage}
+                  src={coverImage}
                   alt=""
                   className="rounded-corners-top w-100 h-100"
                 />
@@ -44,7 +43,7 @@ const CommonProfile: React.FC = ({ children }) => {
               <div className="profile-img">
                 {user?.profilePicture && (
                   <img
-                    src={user?.profilePicture}
+                    src={profilePicture}
                     alt="Profile Picture"
                     className="dp w-100 h-100 feed-up"
                   />

@@ -708,7 +708,7 @@ const SignUp: React.FC = () => {
                                             : false
                                         }
                                       />
-                                      Willing to Donate
+                                      Seeking Donations
                                     </label>
                                     <label className="form-check-label">
                                       <Input
@@ -730,7 +730,7 @@ const SignUp: React.FC = () => {
                                             : false
                                         }
                                       />
-                                      Seeking Donations
+                                      Willing to Donate
                                     </label>
                                   </div>
                                   {validationStep.touched.userType &&
