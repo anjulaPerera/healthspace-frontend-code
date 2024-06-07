@@ -69,13 +69,13 @@ const Feed: React.FC = () => {
       <div className="full-screen">
         <div className="feed-container container px-10rem mt-5rem">
           <div className="row justify-content-center">
-            <div className="w-auto left-col-feed px-3 d-flex justify-content-center">
+            {/* <div className="w-auto left-col-feed px-3 d-flex justify-content-center">
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common">
                 <div className="px-2 pt-2 align-items-center justify-content-center">
                   <p>Left Section!</p>
                 </div>
               </div>
-            </div>
+            </div> */}
             <CommonProfile>
               <CreatePost />
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common mt-4">
@@ -84,13 +84,13 @@ const Feed: React.FC = () => {
                 ))}
               </div>
             </CommonProfile>
-            <div className="w-auto right-col-feed px-3 d-flex justify-content-center">
+            {/* <div className="w-auto right-col-feed px-3 d-flex justify-content-center">
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common">
                 <div className="px-2 pt-2 align-items-center justify-content-center">
                   right section
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
