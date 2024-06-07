@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../../vendors/styles/healthSpaceStyles.css";
-import createTournamentProfile from "../../../components/vendors/images/createTournamentProfile.svg";
 import player2Profile from "../../../components/vendors/images/player2.png";
 import CustomModal from "../../common/Modal";
 import RightArrow from "../../vendors/images/icon/right-arrow.png";

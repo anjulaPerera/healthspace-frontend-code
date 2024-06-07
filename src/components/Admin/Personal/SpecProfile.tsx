@@ -51,7 +51,7 @@ const SpecProfile: React.FC<SpecProfileProps> = ({ user, children }) => {
         const baseUrl = environment.api_url;
         const absoluteUrl = `${baseUrl}/${res.data.coverImage}`;
         console.log("Absolute URL:", absoluteUrl);
-        setSpecUserPP(absoluteUrl);
+        setSpecUserCP(absoluteUrl);
       }
       setUserData(userData);
     });

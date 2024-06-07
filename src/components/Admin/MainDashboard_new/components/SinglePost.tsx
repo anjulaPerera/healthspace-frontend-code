@@ -16,6 +16,7 @@ import { PublicService } from "../../../../services/PublicService";
 import swal from "sweetalert";
 import { PostsService } from "../../../../services/PostsService";
 import CommentPosted from "./Comment";
+import { useHistory } from "react-router-dom";
 
 interface SinglePostProps {
   post: Posts;
@@ -42,6 +43,7 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
     setIsCommentSent(!isCommentSent);
   };
   const [profilePicture, setProfilePicture] = useState<string | undefined>();
+  const history = useHistory();
 
   useEffect(() => {
     if (user?.profilePicture) {
@@ -152,11 +154,20 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
     },
   });
 
+  const handleClickOnUser = () => {
+    console.log("User clicked");
+    // window.location.href = `profile/${post?.userId}`;
+    history.push(`user-profile/${post?.userId}`);
+  };
+
   return (
     <div className="middle-content h-auto w-100 py-4 d-flex justify-content-center align-itmes-center px-2 repeating-section-for-posts">
       <div className="w-100 rounded-corners p-2 h-auto d-flex justify-content-center align-items-center p-3 feed-component-common flex-column ">
         <div className="w-100 rounded-corners p-2 h-auto d-flex justify-content-center align-items-center p-3 feed-component-common flex-column mb-2">
-          <div className="row w-100 d-flex">
+          <div
+            className="row w-100 d-flex cursor-pointer"
+            onClick={handleClickOnUser}
+          >
             <div className="col-md-2 remove-right-padding remove-left-padding">
               {" "}
               <img src={postOwnerProfilePicture} alt="" className="search-dp" />

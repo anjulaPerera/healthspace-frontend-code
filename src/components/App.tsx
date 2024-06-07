@@ -27,6 +27,7 @@ import MainDashboard2 from "./Admin/MainDashboard_new";
 import Feed from "./Admin/MainDashboard_new";
 import VerifyEmail from "./Admin/UserManagement/verify-email";
 import Profile from "./Admin/Personal/Profile";
+import SelectedUserProfile from "./Admin/Personal/UserProfile";
 
 const languages = ["en", "fr"];
 
@@ -52,8 +53,6 @@ i18n
   });
 
 const App: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>();
-  const [tournament, setTournament] = useState<any>();
   return (
     <Router>
       <Switch>
@@ -66,6 +65,9 @@ const App: React.FC = () => {
         <Route path="/verify-email">
           <VerifyEmail />
         </Route>
+        {/* <Route path={RouteName.USER_PROFILE}>
+          <SelectedUserProfile />
+        </Route> */}
 
         <Route path="/">
           <Auth>
@@ -163,6 +165,9 @@ const PatientRouter: React.FC = () => {
             </Route>
             <Route path={RouteName.ADMIN_PROFILE} exact>
               <Profile />
+            </Route>
+            <Route path={RouteName.USER_PROFILE} exact>
+              <SelectedUserProfile />
             </Route>
 
             <Route path="*">
