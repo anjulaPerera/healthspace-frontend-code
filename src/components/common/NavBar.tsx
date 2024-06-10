@@ -4,29 +4,18 @@ import "../vendors/styles/core.css";
 import "../vendors/styles/style.css";
 import { MenuContext } from "../../context/MenuContext";
 import "../vendors/styles/healthSpaceStyles.css";
-import { NavLink, useHistory, useParams } from "react-router-dom";
-import { AdminService } from "../../services/AdminService";
+import { NavLink, useHistory } from "react-router-dom";
 import { Role } from "../../models/Role";
-import UserImg from "../vendors/images/icon/User.png";
-import UserImg1 from "../vendors/images/icon/userIcon.png";
-// import Certificate from "../vendors/images/icon/Certificate.png";
-// import Certificate1 from "../vendors/images/icon/packageIcon.png";
-import { User } from "../../models/User";
+
 import logo_png from "../../components/vendors/images/logo-png.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faAngleDoubleRight,
   faAngleDown,
   faAngleRight,
-  faArrowDown,
-  faHeart,
-  faHouse,
-  faMessage,
   faRightFromBracket,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import Dp from "../vendors/images/photo4.jpg";
 import { environment } from "../../environment/environment";
 
 const NavBar: React.FC = () => {
@@ -133,7 +122,6 @@ const NavBar: React.FC = () => {
                     : "hidden"
                 }`}
               >
-                
                 <div
                   className="logout fs-nav d-flex align-items-center cursor-pointer grey-when-hovered w-100 pl-2 px-2 py-1"
                   onClick={logout}

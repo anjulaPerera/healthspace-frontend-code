@@ -3343,3 +3343,66 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 60px !important;
   width: 80px !important;
 }
+
+.sidepane-wrapper {
+  flex: 1;
+  /* background-color: #fac335; */
+  height: 100vh;
+  padding: 100px 0 100px 0;
+}
+
+.main-content-wrapper {
+  flex: 4;
+  background-color: #f8f9fa;
+  height: 100vh;
+}
+
+.sidepane {
+  border-radius: 10px;
+  width: 90%;
+  height: 100%;
+  background-color: #f5f5f5;
+}
+
+.user-management,
+.post-management,
+.listings-management,
+.requests-management {
+  border-radius: 5px;
+  height: 50px;
+  margin-bottom: 20px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-management:hover,
+.post-management:hover,
+.listings-management:hover,
+.requests-management:hover {
+  /* Your hover styles here */
+  box-shadow: 0px 7px 14px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.man-text {
+  font-size: 14px;
+}
+
+.man-text:hover {
+  font-size: 15px;
+}
+
+.main-content-container {
+  padding-top: 85px;
+  background-color: white;
+}
+
+.main-content {
+  border-radius: 10%;
+  height: auto;
+  background-color: #f5f5f5;
+}
+
+.container.us-man {
+  max-height: 750px;
+  overflow-y: auto;
+}
