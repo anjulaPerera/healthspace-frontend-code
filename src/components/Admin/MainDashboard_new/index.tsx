@@ -9,6 +9,8 @@ import { PostsService } from "../../../services/PostsService";
 import { Posts } from "../../../models/Posts";
 import CreatePost from "./components/CreatePost";
 import CommonProfile from "../Personal/CommonProfile";
+import ListingModal from "./components/ListingModal";
+import RequestModal from "./components/RequestModal";
 
 const Feed: React.FC = () => {
   const [user] = useContext(UserContext);
@@ -16,6 +18,8 @@ const Feed: React.FC = () => {
     useState<boolean>(false);
   const [isCommentSent, setIsCommentSent] = useState<boolean>(false);
   const [posts, setPosts] = useState<Posts[]>([]);
+  const [isListingModalOpen, setIsListingModalOpen] = useState(false);
+  const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
 
   const handleCommentBtnClick = () => {
     setIsCommentBtnClicked(!isCommentBtnClicked);
@@ -53,6 +57,16 @@ const Feed: React.FC = () => {
     }
   }, []);
 
+  const handleListingSubmit = (data: any) => {
+    console.log(data);
+    setIsListingModalOpen(false);
+  };
+
+  const handleRequestSubmit = (data: any) => {
+    console.log(data);
+    setIsRequestModalOpen(false);
+  };
+
   return (
     <>
       <div className="full-screen">
@@ -67,6 +81,24 @@ const Feed: React.FC = () => {
             </div> */}
             <CommonProfile>
               <CreatePost />
+              <button onClick={() => setIsListingModalOpen(true)}>
+                Create Listing
+              </button>
+              <button onClick={() => setIsRequestModalOpen(true)}>
+                Create Request
+              </button>
+
+              <ListingModal
+                isOpen={isListingModalOpen}
+                onRequestClose={() => setIsListingModalOpen(false)}
+                onSubmit={handleListingSubmit}
+              />
+
+              <RequestModal
+                isOpen={isRequestModalOpen}
+                onRequestClose={() => setIsRequestModalOpen(false)}
+                onSubmit={handleRequestSubmit}
+              />
               <div className="w-100 h-auto rounded-corners bg-white feed-component-common mt-4">
                 {posts.map((post, index) => (
                   <SinglePost key={index} post={post} />
