@@ -3,18 +3,7 @@ import "../../vendors/styles/healthSpaceStyles.css";
 import RightArrow from "../../vendors/images/icon/right-arrow.png";
 import Crick1 from "../../vendors/images/crick1.png";
 import UserContext from "../../../context/UserContext";
-import { NavLink } from "react-router-dom";
-import CoverImg from "../../vendors/images/img2.jpg";
-import Dp from "../../vendors/images/photo4.jpg";
-import {
-  faAngleUp,
-  faMessage,
-  faPlay,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import LikeButton from "./components/Like";
-import { FaComment } from "react-icons/fa";
+
 import SinglePost from "./components/SinglePost";
 import { PostsService } from "../../../services/PostsService";
 import { Posts } from "../../../models/Posts";

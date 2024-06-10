@@ -37,14 +37,24 @@ const CommonProfile: React.FC = ({ children }) => {
                 />
               </div>
               <div className="dets d-flex justify-content-center align-items-center rounded-corners-bottom flex-column">
-                <h3 className="mt-4 mb-2">{user?.name}</h3>
+                <div className="user-name-type d-flex justify-content-center align-items-center">
+                  <div className="user-name d-flex justify-content-end align-items-center h-100">
+                    <h3>{user?.name}</h3>
+                  </div>
+                  <div className="user-type d-flex justify-content-left align-items-start h-100">
+                    {user?.userType === "DONOR" ? (
+                      <h6 className="user-type-indicator-d">Donor</h6>
+                    ) : (
+                      <h6 className="user-type-indicator-r">Recipient</h6>
+                    )}
+                  </div>
+                </div>
                 <h6>{user?.occupation}</h6>
               </div>
               <div className="profile-img">
                 {user?.profilePicture && (
                   <img
                     src={profilePicture}
-                    alt="Profile Picture"
                     className="dp w-100 h-100 feed-up"
                   />
                 )}

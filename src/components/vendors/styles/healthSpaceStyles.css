@@ -3356,3 +3356,25 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .padding-top-50 {
   padding-top: 50px;
 }
+
+.user-name-type {
+  height: 60px;
+}
+
+.user-name {
+  flex: 3;
+}
+
+.user-type {
+  flex: 1;
+}
+
+.user-type-indicator-r {
+  color: #03c9fa !important;
+
+}
+
+.user-type-indicator-d {
+  color: #00c27b !important;
+
+}
