@@ -54,7 +54,7 @@ const Feed: React.FC = () => {
         <div className="row justify-content-center align-items-start">
           <CommonProfile>
             <CreatePost />
-            {(user?.userType === "DONOR" || user?.userType === "RECEIVER") && (
+            {(user?.userType === "DONOR" ) && (
               <CreateListing />
             )}
             <div className="w-100 h-auto rounded-corners bg-white feed-component-common mt-4">

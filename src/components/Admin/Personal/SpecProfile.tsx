@@ -73,9 +73,11 @@ const SpecProfile: React.FC<SpecProfileProps> = ({ user, children }) => {
               <div className="dets d-flex justify-content-center align-items-center rounded-corners-bottom flex-column">
                 <div className="d-flex justify-content-center align-items-center">
                   <h3 className="mt-4 mb-2">{userData?.name}</h3>{" "}
-                  <span className="identifier">
-                    {userData?.userType === "DONOR" ? "DONOR" : "SEEKER"}
-                  </span>
+                  {user?.userType === "DONOR" ? (
+                    <h6 className="user-type-indicator-d ml-1">Donor</h6>
+                  ) : (
+                    <h6 className="user-type-indicator-r ml-1">Recipient</h6>
+                  )}
                 </div>
                 <h6>{userData?.occupation}</h6>
               </div>

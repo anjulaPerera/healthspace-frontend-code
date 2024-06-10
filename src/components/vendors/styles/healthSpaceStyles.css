@@ -1051,83 +1051,6 @@ th {
   margin-right: 10px;
 }
 
-.head-overs {
-  padding: 6px 30px 6px 30px;
-  border-radius: 3px;
-  background-color: #dae9ff !important;
-  font-family: Poppins;
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 33px;
-  letter-spacing: 0em;
-  text-align: left;
-  color: #3f3f3f;
-  margin: 15px;
-}
-
-.head-tournament-list {
-  padding: 5px 40px 5px 40px;
-  border-radius: 3px;
-  background: #74abd3;
-  font-family: Poppins;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 24px;
-  letter-spacing: 0em;
-  text-align: left;
-  color: #ffffff;
-  margin: 15px;
-}
-
-.head-tournament-list.user-name {
-  padding: 5px 10px 5px 10px;
-  border-radius: 3px;
-  background: none !important;
-  font-family: Poppins;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 24px;
-  letter-spacing: 0em;
-  text-align: left;
-  color: rgb(75, 75, 75);
-  margin: 10px;
-  display: flex;
-  /* flex-direction: column-reverse; */
-  justify-content: space-between;
-  align-items: center;
-}
-
-.head-tournament-list.user-name span {
-  margin-left: 10px;
-}
-
-.head-tournament-list-none {
-  display: none;
-}
-
-.head-live {
-  padding: 5px 25px 5px 25px;
-  border-radius: 30px;
-  background: #e41ea1;
-  font-family: Poppins;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 24px;
-  letter-spacing: 0em;
-  text-align: left;
-  color: #ffffff;
-  margin: 15px;
-}
-
-.head-live img {
-  width: 25px;
-  height: 25px;
-}
-
-.points-table {
-  background: #f5f5f5;
-  border-radius: 10px !important;
-}
 
 .cursor-pointer {
   cursor: pointer;
@@ -3366,7 +3289,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .user-type {
-  flex: 1;
+  flex: 2;
 }
 
 .user-type-indicator-r {

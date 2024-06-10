@@ -36,12 +36,12 @@ const CommonProfile: React.FC = ({ children }) => {
                   className="rounded-corners-top w-100 h-100"
                 />
               </div>
-              <div className="dets d-flex justify-content-center align-items-center rounded-corners-bottom flex-column">
-                <div className="user-name-type d-flex justify-content-center align-items-center">
+              <div className="dets w-100 d-flex justify-content-center align-items-center rounded-corners-bottom flex-column">
+                <div className="user-name-type d-flex justify-content-start align-items-center w-100">
                   <div className="user-name d-flex justify-content-end align-items-center h-100">
                     <h3>{user?.name}</h3>
                   </div>
-                  <div className="user-type d-flex justify-content-left align-items-start h-100">
+                  <div className="user-type d-flex justify-content-start align-items-start h-100">
                     {user?.userType === "DONOR" ? (
                       <h6 className="user-type-indicator-d">Donor</h6>
                     ) : (
