@@ -18,13 +18,9 @@ import en from "../translations/locales/en.json";
 import fr from "../translations/locales/fr.json";
 import LanguageDetector from "i18next-browser-languagedetector";
 import AdminSideBar from "./Admin/AdminSideBar";
-import Footer from "./common/Footer";
 import UserManagement from "./Admin/UserManagement";
-import UserProfile from "./Admin/UserManagement/Profile";
 import SignUp from "./common/SignUp";
-import UpgradePlan from "./Admin/UserManagement/UpgradePlan";
 import MainDashboard2 from "./Admin/MainDashboard_new";
-import Feed from "./Admin/MainDashboard_new";
 import VerifyEmail from "./Admin/UserManagement/verify-email";
 import Profile from "./Admin/Personal/Profile";
 import SelectedUserProfile from "./Admin/Personal/UserProfile";
@@ -103,21 +99,10 @@ const SuperAdminRouter: React.FC = () => {
   return (
     <ContentLayout>
       <Router>
-        <Route
-          path={[RouteName.ADMIN_USER_MANAGEMENT]}
-          exact
-          render={() => (
-            <>
-              <NavBar />
-              <SidePane>
-                <AdminSideBar />
-              </SidePane>
-            </>
-          )}
-        />
+        <Route path={[RouteName.ADMIN_DASHBOARD]} exact />
         <Content>
           <Switch>
-            <Route path={RouteName.ADMIN_USER_MANAGEMENT}>
+            <Route path={RouteName.ADMIN_DASHBOARD}>
               <UserManagement />
             </Route>
 

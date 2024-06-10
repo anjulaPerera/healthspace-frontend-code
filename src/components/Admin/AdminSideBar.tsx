@@ -18,6 +18,7 @@ import TournamentContext from "../../context/TournamentContext";
 import swal from "sweetalert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import NavBar from "../common/NavBar";
 const AdminSideBar: React.FC = () => {
   const [user] = useContext(UserContext);
   const [tournament] = useContext(TournamentContext);
@@ -34,31 +35,17 @@ const AdminSideBar: React.FC = () => {
   };
   return (
     <div className={isMenuOpen ? "left-side-bar open" : "left-side-bar"}>
-      <div className="brand-logo changed">
-        <NavLink
-          to={
-            user?.userType === Role.SUPER_ADMIN
-              ? `/admin/user-management`
-              : `/hs/home`
-          }
-        >
-          <img src={Logo} className="light-logo" alt="cricView360_logo" />
-        </NavLink>
-
-        <div className="close-sidebar" onClick={toggleMenu}>
-          <i className="ion-close-round"></i>
-        </div>
-      </div>
+      <NavBar />
       <div className="menu-block customscroll">
         <div className="sidebar-menu  d-flex justify-content-center align-items-center">
           <ul id="accordion-menu " className="sidebar-menu-container ">
             {user?.userType === Role.SUPER_ADMIN ? (
               <li>
                 <NavLink
-                  to={"/admin/user-management"}
+                  to={"/admin/dashboard"}
                   onClick={toggleMenu}
                   className={
-                    window.location.pathname === "/admin/user-management"
+                    window.location.pathname === "/admin/dashboard"
                       ? "dropdown-toggle selected-side no-arrow"
                       : "dropdown-toggle no-arrow"
                   }

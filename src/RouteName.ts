@@ -4,9 +4,9 @@ export enum RouteName {
   SIGNUP = "/signup",
   VERIFY_EMAIL = "/verify-email",
 
-  ADMIN_USER_MANAGEMENT = "/admin/user-management",
+  ADMIN_DASHBOARD = "/admin/dashboard",
   // ADMIN_PROFILE = "/admin/profile/:tournamentId?",
   ADMIN_MAIN_DASHBOARD = "/hs/home",
-  ADMIN_PROFILE= "/hs/profile/:userId?",
-  USER_PROFILE= "/hs/user-profile/:userId?",
+  ADMIN_PROFILE = "/hs/profile/:userId?",
+  USER_PROFILE = "/hs/user-profile/:userId?",
 }

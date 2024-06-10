@@ -33,10 +33,7 @@ export const NotFound: React.FC = ({ children }) => {
                 <h4 className="text-uppercase">Sorry, page not found</h4>
                 <div className="mt-5 text-center">
                   {user?.userType === Role.SUPER_ADMIN ? (
-                    <Link
-                      className="btn btn-primary "
-                      to="/admin/user-management"
-                    >
+                    <Link className="btn btn-primary " to="/admin/dashboard">
                       Back to Dashboard
                     </Link>
                   ) : (

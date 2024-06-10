@@ -99,7 +99,7 @@ const Login: React.FC = () => {
         if (userStatus === "ACTIVE") {
           switch (userType) {
             case "SUPER_ADMIN":
-              history.push(RouteName.ADMIN_USER_MANAGEMENT);
+              history.push(RouteName.ADMIN_DASHBOARD);
               break;
             case "RECEIVER":
             case "DONOR":
