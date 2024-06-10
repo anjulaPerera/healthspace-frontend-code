@@ -11,24 +11,41 @@ const PostManagement: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    try {
-      PostsService.getAllPosts().then((response) => {
+    const fetchPostsAndUsers = async () => {
+      try {
+        const response = await PostsService.getAllPosts();
         console.log("Every Post", response);
         const postList: any = response.data;
-        setPostsList(postList);
-        postList.map((post: any) => {
-          AdminService.getUserById(post.userId).then((response) => {
-            const user: User = response.data;
-            console.log("User", user);
-            post.append({ user: user });
-          });
-        });
-        console.log("Posts", postsList);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  });
+
+        // Fetch user data for each post and update the post list
+        const postsWithUserData = await Promise.all(
+          postList.map(async (post: any) => {
+            try {
+              const userResponse = await AdminService.getUserById(post?.userId);
+              const user: User = userResponse.data;
+              console.log("User", user);
+              return { ...post, user }; // Combine post data with user data
+            } catch (error) {
+              console.error("Error fetching user data:", error);
+              return post; // Return the original post if user data fetching fails
+            }
+          })
+        );
+
+        setPostsList(postsWithUserData);
+        console.log("Posts with User Data", postsWithUserData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchPostsAndUsers();
+  }, []);
+
+  const formatDateTime = (dateTimeString: string) => {
+    const dateTime = new Date(dateTimeString);
+    return dateTime.toLocaleString(); // Use Date.toLocaleString() method to format date and time
+  };
 
   return (
     <div className="container mt-2 us-man">
@@ -44,31 +61,19 @@ const PostManagement: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Admin</td>
-            <td>John Doe</td>
-            <td>(123) 456-7890</td>
-            <td>john.doe@example.com</td>
-            <td>
-              <button className="btn btn-danger btn-sm">Delete Post</button>
-            </td>
-          </tr>
-          {/* {
-            postsList.map((post:any, index) => {
-              
-              return (
-                <tr key={index}>
-                  <td>{post.user?.name}</td>
-                  <td>{post}</td>
-                  <td>{post.content}</td>
-                  <td>{post.createdAt}</td>
-                  <td>
-                    <button className="btn btn-danger btn-sm">Delete Post</button>
-                  </td>
-                </tr>
-              );
-            })
-          } */}
+          {postsList.map((post: any, index) => {
+            return (
+              <tr key={index}>
+                <td>{post.user?.name}</td>
+                <td>{post.user?.phone}</td>
+                <td>{post.content}</td>
+                <td>{formatDateTime(post.createdAt)}</td>
+                <td>
+                  <button className="btn btn-danger btn-sm">Delete Post</button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
