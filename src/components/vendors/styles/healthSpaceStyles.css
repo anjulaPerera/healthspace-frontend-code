@@ -3378,3 +3378,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: #00c27b !important;
 
 }
+
+
+
+.align-items-center.cursor-p.py-1.px-2.post-btn.act-btn {
+
+  background-color: rgb(255, 153, 0) !important;
+
+}
+
+.hor-line {
+  margin-top: 5px;
+  height: 1px;
+  background-color: #d8d8d8;
+  width: 98%;
+  border-radius: 50%;
+}

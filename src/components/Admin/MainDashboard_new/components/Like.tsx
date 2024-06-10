@@ -3,6 +3,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import UserContext from "../../../../context/UserContext";
 import { Like } from "../../../../models/Posts";
 import { PostsService } from "../../../../services/PostsService";
+
 interface LikeButtonProps {
   likesFrom: Like[];
   postId: string;
@@ -11,10 +12,11 @@ interface LikeButtonProps {
 const LikeButton: React.FC<LikeButtonProps> = ({ likesFrom, postId }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [user] = useContext(UserContext);
-  // const [currentLikesCount, setCurrentLikesCount] = useState(0);
   const [likesCount, setLikesCount] = useState(0);
 
   useEffect(() => {
+    let isMounted = true;
+
     if (user && likesFrom.some((like) => like.userId === user._id)) {
       setIsLiked(true);
     } else {
@@ -23,23 +25,38 @@ const LikeButton: React.FC<LikeButtonProps> = ({ likesFrom, postId }) => {
 
     PostsService.getPostsByPostId(postId)
       .then((res) => {
-        setLikesCount(res.data.likesFrom.length);
-        console.log("getting post by post id", res.data);
-        console.log("getting post LIKES by post id", res.data.likesFrom.length);
+        if (isMounted) {
+          setLikesCount(res.data.likesFrom.length);
+          console.log("getting post by post id", res.data);
+          console.log(
+            "getting post LIKES by post id",
+            res.data.likesFrom.length
+          );
+        }
       })
       .catch((err) => {
         console.log("getting post by post id ERROR", err);
       });
-  }, [user]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [user, postId, likesFrom]);
 
   const handleLikeClick = () => {
+    if (!user) return; // handle case where user is not defined
+
     setIsLiked(!isLiked);
 
-    PostsService.putLike(postId, user?._id)
+    PostsService.putLike(postId, user._id)
       .then((res) => {
         console.log(res);
+        if (isLiked) {
+          setLikesCount((prev) => prev - 1);
+        } else {
+          setLikesCount((prev) => prev + 1);
+        }
         setIsLiked(!isLiked);
-        isLiked ? setLikesCount(likesCount - 1) : setLikesCount(likesCount + 1);
       })
       .catch((err) => {
         console.log(err);

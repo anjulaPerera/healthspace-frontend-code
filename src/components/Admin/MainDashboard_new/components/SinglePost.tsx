@@ -46,40 +46,54 @@ const SinglePost: React.FC<SinglePostProps> = ({ post }) => {
   const history = useHistory();
 
   useEffect(() => {
+    let isMounted = true;
     if (user?.profilePicture) {
       const baseUrl = environment.api_url;
       const absoluteUrl = `${baseUrl}/${user.profilePicture}`;
       console.log("Absolute URL:", absoluteUrl);
-      setProfilePicture(absoluteUrl);
+      if (isMounted) {
+        setProfilePicture(absoluteUrl);
+      }
+      return () => {
+        isMounted = false;
+      };
     }
-  }, []);
+  }, [user?.profilePicture]);
 
   useEffect(() => {
+    let isMounted = true;
     AdminService.getUserById(post?.userId)
       .then((res) => {
-        console.log(res.data, "is the post owner");
-        setPostOwner(res.data);
-        if (res.data?.profilePicture) {
-          const baseUrl = environment.api_url;
-          const absoluteUrl = `${baseUrl}/${res.data.profilePicture}`;
-          console.log("Absolute URL:", absoluteUrl);
-          setPostOwnerProfilePicture(absoluteUrl);
+        if (isMounted) {
+          console.log(res.data, "is the post owner");
+          setPostOwner(res.data);
+          if (res.data?.profilePicture) {
+            const baseUrl = environment.api_url;
+            const absoluteUrl = `${baseUrl}/${res.data.profilePicture}`;
+            console.log("Absolute URL:", absoluteUrl);
+            setPostOwnerProfilePicture(absoluteUrl);
+          }
         }
       })
       .catch((err) => console.log(err));
 
     const postTimeElapsed = calculateTimeElapsed(post.createdAt);
-    setTimeElapsedAfterPosting(postTimeElapsed);
+    if (isMounted) setTimeElapsedAfterPosting(postTimeElapsed);
 
     PostsService.getPostsByPostId(post._id)
       .then((res) => {
-        console.log("res", res);
-        console.log("comments array", res.data.commentsFrom);
-        setCommentsArray(res.data.commentsFrom);
+        if (isMounted) {
+          console.log("res", res);
+          console.log("comments array", res.data.commentsFrom);
+          setCommentsArray(res.data.commentsFrom);
+        }
       })
       .catch((err) => {
         console.log("err", err);
       });
+    return () => {
+      isMounted = false;
+    };
   }, [post._id, post.createdAt, post?.userId, reload]);
 
   function calculateTimeElapsed(dateString: string | number | Date) {
