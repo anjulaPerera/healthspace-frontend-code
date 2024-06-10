@@ -30,8 +30,13 @@ export class AdminService {
     return await axios.get<void, AppResponse<any>>(url);
   }
   public static async getEveryUserByAdmin(): Promise<AppResponse<any>> {
-    const url = Util.apiAuthUrl(`get/every-user`);
+    const url = Util.apiAuthUrl(`get/user-list`);
     return await axios.get<void, AppResponse<any>>(url);
+  }
+
+  public static async deleteUser(userId: any): Promise<AppResponse<User>> {
+    const url = Util.apiAuthUrl(`delete/user/${userId}`);
+    return await axios.delete<User, AppResponse<User>>(url);
   }
   public static async getUserById(userId: any): Promise<AppResponse<User>> {
     const url = Util.apiAuthUrl(`get/user/${userId}`);

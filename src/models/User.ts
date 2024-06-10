@@ -28,6 +28,7 @@ export interface User {
   profilePicture?: string;
   coverImage?: string;
   occupation?: string;
+  city?: string;
 }
 
 export interface UserData {

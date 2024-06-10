@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const RequestsManagement: React.FC = () => {
+  useEffect(() => {
+    document.title = "Requests Management - Admin | CRM";
+  }, []);
   return (
     <div className="container mt-2 us-man">
-      <h2 className="mb-4">User Management</h2>
+      <h2 className="mb-4">Requests Management</h2>
       <table className="table table-bordered table-striped">
         <thead className="thead-dark">
           <tr>
