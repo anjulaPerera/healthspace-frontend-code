@@ -3391,6 +3391,32 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin-top: 5px;
   height: 1px;
   background-color: #d8d8d8;
-  width: 98%;
+  width: 95%;
   border-radius: 50%;
+}
+
+.rqst-donation {
+  background-color: #f8f9fa;
+  border-radius: 7px;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: left;
+  font-size: 11px;
+}
+
+.rqst-donation:hover {
+  background-color: #7c7c7c;
+  color: white;
+  border: none !important;
+}
+
+.listing-table {
+  font-size: 12px !important;
+}
+
+.search-dp.listing {
+  height: 60px !important;
+  width: 80px !important;
 }

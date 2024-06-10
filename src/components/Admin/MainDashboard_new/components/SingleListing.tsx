@@ -14,6 +14,7 @@ interface SingleListingProps {
 }
 
 const SingleListing: React.FC<SingleListingProps> = ({ listing }) => {
+  const [user] = useContext(UserContext);
   const [listingOwner, setPostOwner] = useState<User>();
   const [timeElapsedAfterPosting, setTimeElapsedAfterPosting] =
     useState<string>("");
@@ -75,23 +76,44 @@ const SingleListing: React.FC<SingleListingProps> = ({ listing }) => {
     history.push(`user-profile/${listing?.userId}`);
   };
 
+  const handleRequestClick = () => {
+    console.log("Request Clicked");
+    const data = {
+      listingId: listing._id,
+      receiverId: user?._id,
+    };
+    console.log("Request Data", data);
+  };
+
   return (
-    <div className="middle-content h-auto w-100 py-4 d-flex justify-content-center align-itmes-center px-2 repeating-section-for-posts">
+    <div className="middle-content h-auto w-100 py-2 d-flex justify-content-center align-itmes-center px-2 repeating-section-for-posts">
       <div className="w-100 rounded-corners p-2 h-auto d-flex justify-content-center align-items-center p-3 feed-component-common flex-column ">
         <div className="w-100 rounded-corners p-2 h-auto d-flex justify-content-center align-items-center p-3 feed-component-common flex-column mb-2">
-          <div
-            className="row w-100 d-flex cursor-pointer"
-            onClick={handleClickOnUser}
-          >
-            <div className="col-md-2 remove-right-padding remove-left-padding">
+          <div className="row w-100 d-flex cursor-pointer">
+            <div
+              className="col-md-2 remove-right-padding remove-left-padding"
+              onClick={handleClickOnUser}
+            >
               {" "}
-              <img src={postOwnerProfilePicture} alt="" className="search-dp" />
+              <img
+                src={postOwnerProfilePicture}
+                alt=""
+                className="search-dp listing"
+              />
             </div>
-            <div className="col-md-10 remove-left-padding">
+            <div className="col-md-10 remove-left-padding d-flex align-items-start justify-content-between">
               <div className="row w-auto d-flex flex-column ml-2">
                 <p className="name-post">{listingOwner?.name}</p>
                 <p className="job-post">{listingOwner?.occupation}</p>
                 <p className="time-post">{timeElapsedAfterPosting}</p>
+              </div>
+              <div>
+                <button
+                  className="rqst-donation px-2"
+                  onClick={handleRequestClick}
+                >
+                  Send Request
+                </button>
               </div>
             </div>
           </div>
@@ -102,7 +124,111 @@ const SingleListing: React.FC<SingleListingProps> = ({ listing }) => {
             </div>
           </div>
           <div className="row w-100 px-2 d-flex justify-content-left align-items-center">
-            <p className="post-text">{listing?.donationType}</p>
+            <table className="listing-table w-100">
+              <tbody>
+                <tr>
+                  <td className="tpc">Donation Type</td>
+                  <td>{listing?.donationType}</td>
+                </tr>
+                {listing?.organDonationSpecifics?.organName && (
+                  <tr>
+                    <td className="tpc">Organ Name</td>
+                    <td>{listing?.organDonationSpecifics?.organName}</td>
+                  </tr>
+                )}
+                {listing?.organDonationSpecifics?.bloodType && (
+                  <tr>
+                    <td className="tpc">Blood Type</td>
+                    <td>{listing?.organDonationSpecifics?.bloodType}</td>
+                  </tr>
+                )}
+                {listing?.organDonationSpecifics?.availabilityForDonation && (
+                  <tr>
+                    <td className="tpc">Availability</td>
+                    <td>
+                      {listing?.organDonationSpecifics?.availabilityForDonation}
+                    </td>
+                  </tr>
+                )}
+                {listing?.organDonationSpecifics?.healthCareProviderDetails && (
+                  <tr>
+                    <td className="tpc">Health Care Provider Details</td>
+                    <td>
+                      {
+                        listing?.organDonationSpecifics
+                          ?.healthCareProviderDetails
+                      }
+                    </td>
+                  </tr>
+                )}
+                {listing?.equipmentDonationSpecifics?.typeOfEquipment && (
+                  <tr>
+                    <td className="tpc">Type of Equipment</td>
+                    <td>
+                      {listing?.equipmentDonationSpecifics?.typeOfEquipment}
+                    </td>
+                  </tr>
+                )}
+                {listing?.equipmentDonationSpecifics?.condition && (
+                  <tr>
+                    <td className="tpc">Condition</td>
+                    <td>{listing?.equipmentDonationSpecifics?.condition}</td>
+                  </tr>
+                )}
+                {listing?.equipmentDonationSpecifics?.modelNumber && (
+                  <tr>
+                    <td className="tpc">Model Number</td>
+                    <td>{listing?.equipmentDonationSpecifics.modelNumber}</td>
+                  </tr>
+                )}
+                {listing?.equipmentDonationSpecifics?.serialNumber && (
+                  <tr>
+                    <td className="tpc">Serial Number</td>
+                    <td>{listing?.equipmentDonationSpecifics.serialNumber}</td>
+                  </tr>
+                )}
+                {listing?.equipmentDonationSpecifics?.manufacturer && (
+                  <tr>
+                    <td className="tpc">Manufacturer</td>
+                    <td>{listing?.equipmentDonationSpecifics.manufacturer}</td>
+                  </tr>
+                )}
+                {listing?.equipmentDonationSpecifics?.usageHistory && (
+                  <tr>
+                    <td className="tpc">Usage History</td>
+                    <td>{listing?.equipmentDonationSpecifics.usageHistory}</td>
+                  </tr>
+                )}
+                {listing?.otherDonationSpecifics?.typeOfDonation && (
+                  <tr>
+                    <td className="tpc">Type of Donation</td>
+                    <td>{listing?.otherDonationSpecifics.typeOfDonation}</td>
+                  </tr>
+                )}
+                {listing?.otherDonationSpecifics?.quantity && (
+                  <tr>
+                    <td className="tpc">Quantity</td>
+                    <td>{listing?.otherDonationSpecifics.quantity}</td>
+                  </tr>
+                )}
+                {listing?.otherDonationSpecifics?.expiryDate && (
+                  <tr>
+                    <td className="tpc">Expiry Date</td>
+                    <td>{listing?.otherDonationSpecifics.expiryDate}</td>
+                  </tr>
+                )}
+                {listing?.otherDonationSpecifics?.condition && (
+                  <tr>
+                    <td className="tpc">Condition</td>
+                    <td>{listing?.otherDonationSpecifics.condition}</td>
+                  </tr>
+                )}
+                <tr>
+                  <td className="tpc">Other Details</td>
+                  <td>{listing?.otherDetails}</td>
+                </tr>
+              </tbody>{" "}
+            </table>
           </div>
         </div>
       </div>
