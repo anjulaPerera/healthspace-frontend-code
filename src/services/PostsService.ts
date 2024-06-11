@@ -68,8 +68,21 @@ export class PostsService {
     return await axios.get<Listings, AppResponse<Listings>>(url);
   }
 
+  public static async getMyOrganListings(userId:any): Promise<AppResponse<Listings>> {
+    const url = Util.apiAuthUrl(`my/listings/organs/get/${userId}`);
+    return await axios.get<Listings, AppResponse<Listings>>(url);
+  }
+  public static async getMyEquipmentListings(userId:any): Promise<AppResponse<Listings>> {
+    const url = Util.apiAuthUrl(`my/listings/equipment/get/${userId}`);
+    return await axios.get<Listings, AppResponse<Listings>>(url);
+  }
+  public static async getMyOtherListings(userId:any): Promise<AppResponse<Listings>> {
+    const url = Util.apiAuthUrl(`my/listings/other/get/${userId}`);
+    return await axios.get<Listings, AppResponse<Listings>>(url);
+  }
+
   public static async deletePostByAdmin(
-    postId:any
+    postId: any
   ): Promise<AppResponse<any>> {
     const url = Util.apiAuthUrl(`admin/post/delete/${postId}`);
     return await axios.post<Partial<any>, AppResponse<any>>(url, postId);

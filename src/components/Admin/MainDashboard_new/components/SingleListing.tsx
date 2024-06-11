@@ -108,12 +108,14 @@ const SingleListing: React.FC<SingleListingProps> = ({ listing }) => {
                 <p className="time-post">{timeElapsedAfterPosting}</p>
               </div>
               <div>
-                <button
-                  className="rqst-donation px-2"
-                  onClick={handleRequestClick}
-                >
-                  Send Request
-                </button>
+                {user?._id === listingOwner?._id ? null : (
+                  <button
+                    className="rqst-donation px-2"
+                    onClick={handleRequestClick}
+                  >
+                    Send Request
+                  </button>
+                )}
               </div>
             </div>
           </div>

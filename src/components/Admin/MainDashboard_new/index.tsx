@@ -8,6 +8,7 @@ import CreatePost from "./components/CreatePost";
 import CommonProfile from "../Personal/CommonProfile";
 import CreateListing from "./components/CreateListing";
 import ListingsComponent from "./components/Listings";
+import MyListingsComponent from "./components/MyListings";
 
 const Feed: React.FC = () => {
   const [user] = useContext(UserContext);
@@ -54,9 +55,7 @@ const Feed: React.FC = () => {
         <div className="row justify-content-center align-items-start">
           <CommonProfile>
             <CreatePost />
-            {(user?.userType === "DONOR" ) && (
-              <CreateListing />
-            )}
+            {user?.userType === "DONOR" && <CreateListing />}
             <div className="w-100 h-auto rounded-corners bg-white feed-component-common mt-4">
               {posts.map((post, index) => (
                 <SinglePost key={index} post={post} />
@@ -64,6 +63,7 @@ const Feed: React.FC = () => {
             </div>
           </CommonProfile>
           {user?.userType === "RECEIVER" && <ListingsComponent />}
+          {user?.userType === "DONOR" && <MyListingsComponent />}
         </div>
       </div>
     </div>

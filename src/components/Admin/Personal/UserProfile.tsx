@@ -73,10 +73,6 @@ const SelectedUserProfile: React.FC = () => {
                 ))}
               </div>
             </SpecProfile>
-
-            <div className="col-md-5 right-col-feed px-3 d-flex justify-content-center">
-              <Chats />
-            </div>
           </div>
         </div>
       </div>
