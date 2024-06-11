@@ -3,6 +3,7 @@ import { PostsService } from "../../../services/PostsService";
 import { Posts } from "../../../models/Posts";
 import { AdminService } from "../../../services/AdminService";
 import { User } from "./../../../models/User";
+import swal from "sweetalert";
 
 const PostManagement: React.FC = () => {
   const [postsList, setPostsList] = useState<Posts[]>([]);
@@ -47,6 +48,39 @@ const PostManagement: React.FC = () => {
     return dateTime.toLocaleString(); // Use Date.toLocaleString() method to format date and time
   };
 
+  const handleDeletePost = (postId: any) => async () => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this post!",
+      icon: "warning",
+      buttons: ["Cancel", "Delete"],
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        try {
+          const response = await PostsService.deletePostByAdmin(postId);
+          if (response.success) {
+            swal("Post has been deleted!", {
+              icon: "success",
+            });
+            const updatedUserList = postsList.filter(
+              (post) => post._id !== postId
+            );
+            setPostsList(updatedUserList);
+          } else {
+            swal("Error", response.message, "error");
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        swal("Post is safe!", {
+          icon: "info",
+        });
+      }
+    });
+  };
+
   return (
     <div className="container mt-2 us-man">
       <h2 className="mb-4">Posts Management</h2>
@@ -69,7 +103,12 @@ const PostManagement: React.FC = () => {
                 <td>{post.content}</td>
                 <td>{formatDateTime(post.createdAt)}</td>
                 <td>
-                  <button className="btn btn-danger btn-sm">Delete Post</button>
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={handleDeletePost(post?._id)}
+                  >
+                    Delete Post
+                  </button>
                 </td>
               </tr>
             );

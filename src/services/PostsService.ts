@@ -67,4 +67,11 @@ export class PostsService {
     const url = Util.apiAuthUrl(`listings/other/get`);
     return await axios.get<Listings, AppResponse<Listings>>(url);
   }
+
+  public static async deletePostByAdmin(
+    postId:any
+  ): Promise<AppResponse<any>> {
+    const url = Util.apiAuthUrl(`admin/post/delete/${postId}`);
+    return await axios.post<Partial<any>, AppResponse<any>>(url, postId);
+  }
 }
