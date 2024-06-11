@@ -3406,3 +3406,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   max-height: 750px;
   overflow-y: auto;
 }
+
+.modal-details {
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: -58px;
+  right: 0;
+}
+
+.close-btn:hover {
+  cursor: pointer;
+  font-weight: 800 !important;
+}
