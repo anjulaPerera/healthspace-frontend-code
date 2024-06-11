@@ -63,28 +63,34 @@ const ListingModal: React.FC<ListingModalProps> = ({
       onSubmit={onSubmit}
       title="Create Listing"
     >
-      <div className="tabs">
+      <div className="tabs w-100 d-flex justify-content-start align-items-center mt-3">
         <button
-          className={activeTab === "organ" ? "active" : ""}
+          id="organ-btn-listing-modal"
+          className={activeTab === "organ" ? "active bg-secondary" : ""}
           onClick={(e) => handleTabChange("organ", e)}
         >
           Organ Donation
         </button>
         <button
-          className={activeTab === "equipment" ? "active" : ""}
+          id="eq-btn-listing-modal"
+          className={activeTab === "equipment" ? "active bg-secondary" : ""}
           onClick={(e) => handleTabChange("equipment", e)}
         >
           Equipment Donation
         </button>
         <button
-          className={activeTab === "other" ? "active" : ""}
+          id="other-btn-listing-modal"
+          className={activeTab === "other" ? "active bg-secondary" : ""}
           onClick={(e) => handleTabChange("other", e)}
         >
           Other Donation
         </button>
       </div>
 
-      <form onSubmit={handleListingSubmit}>
+      <form
+        onSubmit={handleListingSubmit}
+        className="d-flex flex-column listing-form"
+      >
         {activeTab === "organ" && (
           <>
             {/* Organ Donation Fields */}
@@ -113,7 +119,7 @@ const ListingModal: React.FC<ListingModalProps> = ({
             <input name="healthCareProviderDetails" />
 
             <label>Other Details</label>
-            <input name="otherDetails"></input>
+            <textarea name="otherDetails" className="mb-2"></textarea>
           </>
         )}
 
@@ -143,7 +149,7 @@ const ListingModal: React.FC<ListingModalProps> = ({
             <input name="usageHistory" />
 
             <label>Other Details</label>
-            <textarea name="otherDetails"></textarea>
+            <textarea name="otherDetails" className="mb-2"></textarea>
           </>
         )}
 
@@ -167,11 +173,16 @@ const ListingModal: React.FC<ListingModalProps> = ({
             </select>
 
             <label>Other Details</label>
-            <textarea name="otherDetails"></textarea>
+            <textarea name="otherDetails" className="mb-2"></textarea>
           </>
         )}
 
-        <button type="submit">Send Now</button>
+        <button
+          type="submit"
+          className="listing-submit-btn btn btn-success btn-sm"
+        >
+          Send Now
+        </button>
       </form>
     </ModalComponent>
   );

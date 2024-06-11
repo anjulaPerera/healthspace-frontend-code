@@ -3421,3 +3421,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
   font-weight: 800 !important;
 }
+
+#organ-btn-listing-modal,
+#eq-btn-listing-modal,
+#other-btn-listing-modal {
+  background-color: #e2e2e2;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+.listing-form {
+  padding: 20px;
+}
