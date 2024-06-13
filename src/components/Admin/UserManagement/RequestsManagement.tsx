@@ -14,7 +14,7 @@ const RequestsManagement: React.FC = () => {
   const [requestedListing, setRequestedListing] = useState<any>();
   const [donorDetails, setDonorDetails] = useState<User>();
   const [requester, setRequester] = useState<User>();
-  const [allRequests, setAllRequests] = useState<any>();
+  const [allRequests, setAllRequests] = useState<any>([]);
   const [filter, setFilter] = useState<string>("");
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const RequestsManagement: React.FC = () => {
     setIsRequesterDetailsModalOpen(false);
   };
 
-  const hanleRequestDelete = (requestId: any) => async () => {
+  const handleRequestDelete = (requestId: any) => async () => {
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover this request!",
@@ -75,39 +75,56 @@ const RequestsManagement: React.FC = () => {
       }
     });
   };
+
   const formatDateTime = (dateTimeString: string) => {
     const dateTime = new Date(dateTimeString);
     return dateTime.toLocaleString(); // Use Date.toLocaleString() method to format date and time
   };
-    const handleFilterChange = (
-      event: React.ChangeEvent<HTMLSelectElement>
-    ) => {
-      setFilter(event.target.value);
-    };
 
-    const filteredRequests = allRequests.filter((request: any) => {
-      if (filter === "") {
-        return true;
-      }
-      return request?.requestedListing?.donationType === filter;
-    });
+  const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setFilter(event.target.value);
+  };
+
+  const filteredRequests = allRequests.filter((request: any) => {
+    if (filter === "") {
+      return true;
+    }
+    return request?.requestedListing?.donationType === filter;
+  });
 
   return (
     <div className="container mt-2 us-man">
       <h2 className="mb-4">Requests Management</h2>
+
+      <div className="mb-3">
+        <label htmlFor="filter" className="form-label mr-3">
+          Filter by Donation Type:
+        </label>
+        <select
+          id="filter"
+          className="form-select"
+          value={filter}
+          onChange={handleFilterChange}
+        >
+          <option value="">All</option>
+          <option value="ORGAN">Organ</option>
+          <option value="EQUIPMENT">Equipment</option>
+          <option value="OTHER">Other</option>
+        </select>
+      </div>
+
       <table className="table table-bordered table-striped">
         <thead className="thead-dark">
           <tr>
             <th>Requested By</th>
-            <th>Lisiting Details</th>
+            <th>Listing Details</th>
             <th>Donor Details</th>
             <th>Requested At</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-     
-          {allRequests?.map((request: any, index: number) => {
+          {filteredRequests.map((request: any, index: number) => {
             return (
               <tr key={index}>
                 <td>
@@ -143,12 +160,11 @@ const RequestsManagement: React.FC = () => {
                     {request?.donor?.name}
                   </button>
                 </td>
-
                 <td>{formatDateTime(request?.requestedAt)}</td>
                 <td>
                   <button
                     className="btn btn-danger btn-sm"
-                    onClick={hanleRequestDelete(request?._id)}
+                    onClick={handleRequestDelete(request?._id)}
                   >
                     Delete Post
                   </button>
@@ -191,7 +207,7 @@ const RequestsManagement: React.FC = () => {
           isOpen={isRequesterDetailsModalOpen}
           onRequestClose={handleModalClose}
           onSubmit={() => {}}
-          title="Donor Details"
+          title="Requester Details"
         >
           <div className="modal-details">
             <div className="m-4 rounded shadow">
