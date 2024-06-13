@@ -8,6 +8,8 @@ import { environment } from "../../../../environment/environment";
 
 import { useHistory } from "react-router-dom";
 import { Listings } from "../../../../models/Listings";
+import { PostsService } from "../../../../services/PostsService";
+import swal from "sweetalert";
 
 interface SingleListingProps {
   listing: Listings;
@@ -20,6 +22,7 @@ const SingleListing: React.FC<SingleListingProps> = ({ listing }) => {
     useState<string>("");
   const [postOwnerProfilePicture, setPostOwnerProfilePicture] =
     useState<string>("");
+  const [requestedListing, setRequestedListing] = useState<any>();
 
   const [reload, setReload] = useState<boolean>(false);
   const history = useHistory();
@@ -76,12 +79,25 @@ const SingleListing: React.FC<SingleListingProps> = ({ listing }) => {
     history.push(`user-profile/${listing?.userId}`);
   };
 
-  const handleRequestClick = () => {
+  const handleRequestClick = (listing: Listings) => {
     console.log("Request Clicked");
+
     const data = {
-      listingId: listing._id,
-      receiverId: user?._id,
+      requestedListing: listing,
+      requester: user,
+      donor:listingOwner
     };
+
+    try {
+      PostsService.sendRequest(data).then((res) => {
+        swal("Request Sent", "Your request has been sent", "success");
+        console.log("Request Sent", res);
+      });
+    } catch (error) {
+      swal("Error", "An error occurred while sending the request", "error");
+      console.log("Error in sending request", error);
+    }
+
     console.log("Request Data", data);
   };
 
@@ -111,7 +127,7 @@ const SingleListing: React.FC<SingleListingProps> = ({ listing }) => {
                 {user?._id === listingOwner?._id ? null : (
                   <button
                     className="rqst-donation px-2"
-                    onClick={handleRequestClick}
+                    onClick={() => handleRequestClick(listing)}
                   >
                     Send Request
                   </button>

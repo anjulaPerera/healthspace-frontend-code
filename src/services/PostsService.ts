@@ -50,6 +50,12 @@ export class PostsService {
     const url = Util.apiAuthUrl(`listing/create`);
     return await axios.post<Partial<any>, AppResponse<any>>(url, data);
   }
+  public static async sendRequest(
+    data: Partial<any> ///request/create
+  ): Promise<AppResponse<any>> {
+    const url = Util.apiAuthUrl(`request/create`);
+    return await axios.post<Partial<any>, AppResponse<any>>(url, data);
+  }
 
   public static async getAllListings(): Promise<AppResponse<Listings>> {
     const url = Util.apiAuthUrl(`listings/get`);
@@ -68,19 +74,30 @@ export class PostsService {
     return await axios.get<Listings, AppResponse<Listings>>(url);
   }
 
-  public static async getMyOrganListings(userId:any): Promise<AppResponse<Listings>> {
+  public static async getMyOrganListings(
+    userId: any
+  ): Promise<AppResponse<Listings>> {
     const url = Util.apiAuthUrl(`my/listings/organs/get/${userId}`);
     return await axios.get<Listings, AppResponse<Listings>>(url);
   }
-  public static async getMyEquipmentListings(userId:any): Promise<AppResponse<Listings>> {
+  public static async getMyEquipmentListings(
+    userId: any
+  ): Promise<AppResponse<Listings>> {
     const url = Util.apiAuthUrl(`my/listings/equipment/get/${userId}`);
     return await axios.get<Listings, AppResponse<Listings>>(url);
   }
-  public static async getMyOtherListings(userId:any): Promise<AppResponse<Listings>> {
+  public static async getMyOtherListings(
+    userId: any
+  ): Promise<AppResponse<Listings>> {
     const url = Util.apiAuthUrl(`my/listings/other/get/${userId}`);
     return await axios.get<Listings, AppResponse<Listings>>(url);
   }
-
+  public static async getListingByListingId(
+    listingId: any
+  ): Promise<AppResponse<Posts>> {
+    const url = Util.apiAuthUrl(`listing/get/${listingId}`);
+    return await axios.get<Posts, AppResponse<Posts>>(url);
+  }
   public static async deletePostByAdmin(
     postId: any
   ): Promise<AppResponse<any>> {
