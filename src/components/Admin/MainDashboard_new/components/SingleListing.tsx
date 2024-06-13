@@ -97,10 +97,7 @@ const SingleListing: React.FC<SingleListingProps> = ({ listing }) => {
           buttons: ["Cancel", "Send"],
         }).then((confirmed) => {
           if (confirmed) {
-            PostsService.sendRequest(data).then((res) => {
-              console.log("Request Sent", res);
-              swal("Request Sent", "Your request has been sent", "success");
-            });
+            swal("Request Sent", "Your request has been sent", "success");
           }
         });
         console.log("Request Sent", res);
