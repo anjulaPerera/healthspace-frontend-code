@@ -124,7 +124,10 @@ const ListingsManagement: React.FC = () => {
       }
     };
   };
-
+  const formatDateTime = (dateTimeString: Date) => {
+    const dateTime = new Date(dateTimeString);
+    return dateTime.toLocaleString(); // Use Date.toLocaleString() method to format date and time
+  };
   const handleModalClose = () => {
     setIsModalOpen(false);
     setPostOwner(null);
@@ -177,6 +180,7 @@ const ListingsManagement: React.FC = () => {
                   <th>Blood Type</th>
                   <th>Availability</th>
                   <th>HealthCare Provider</th>
+                  <th>Listed At</th>
                   <th>Other Details</th>
                   <th>Actions</th>
                 </tr>
@@ -192,13 +196,14 @@ const ListingsManagement: React.FC = () => {
                     <td>
                       {listing.organDonationSpecifics.healthCareProviderDetails}
                     </td>
+                    <td>{formatDateTime(listing?.listedAt)}</td>
                     <td>{listing.otherDetails}</td>
                     <td>
                       <button
-                        className="btn btn-primary btn-sm"
+                        className="btn btn-info btn-sm"
                         onClick={handleClickOnDonorDetails(listing?.userId)}
                       >
-                        Donor Details
+                        View donor details
                       </button>
                     </td>
                   </tr>
@@ -213,12 +218,12 @@ const ListingsManagement: React.FC = () => {
               <thead className="thead-dark">
                 <tr>
                   <th>Equipment Type</th>
-                  <th>COndition</th>
+                  <th>Condition</th>
                   <th>Model Number</th>
                   <th>Seriel Number</th>
                   <th>Manufacturer</th>
                   <th>Usage History</th>
-                  <th>Other Details</th>
+                  <th>Listed At</th> <th>Other Details</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -233,13 +238,14 @@ const ListingsManagement: React.FC = () => {
                     <td>{listing?.equipmentDonationSpecifics?.serialNumber}</td>
                     <td>{listing?.equipmentDonationSpecifics?.manufacturer}</td>
                     <td>{listing?.equipmentDonationSpecifics?.usageHistory}</td>
+                    <td>{formatDateTime(listing?.listedAt)}</td>
                     <td>{listing.otherDetails}</td>
                     <td>
                       <button
-                        className="btn btn-primary btn-sm"
+                        className="btn btn-info btn-sm"
                         onClick={handleClickOnDonorDetails(listing?.userId)}
                       >
-                        Donor Details
+                        View donor details
                       </button>
                     </td>
                   </tr>
@@ -257,6 +263,7 @@ const ListingsManagement: React.FC = () => {
                   <th>Quantity</th>
                   <th>Expiration Date</th>
                   <th>Condition</th>
+                  <th>Listed At</th>
                   <th>Other Details</th>
                   <th>Actions</th>
                 </tr>
@@ -268,13 +275,14 @@ const ListingsManagement: React.FC = () => {
                     <td>{listing?.otherDonationSpecifics?.quantity}</td>
                     <td>{listing?.otherDonationSpecifics?.expiryDate}</td>
                     <td>{listing?.otherDonationSpecifics?.condition}</td>
+                    <td>{formatDateTime(listing?.listedAt)}</td>
                     <td>{listing?.otherDetails}</td>
                     <td>
                       <button
-                        className="btn btn-primary btn-sm"
+                        className="btn btn-info btn-sm"
                         onClick={handleClickOnDonorDetails(listing?.userId)}
                       >
-                        Donor Details
+                        View donor details
                       </button>
                     </td>
                   </tr>
@@ -289,7 +297,7 @@ const ListingsManagement: React.FC = () => {
           isOpen={isModalOpen}
           onRequestClose={handleModalClose}
           onSubmit={() => {}}
-          title="Donor Details"
+          title="Donor details"
         >
           <div className="modal-details">
             <div className="m-4 rounded shadow">

@@ -3,6 +3,7 @@ import axios from "axios";
 import { AppResponse } from "../models/Response";
 import { Util } from "../Util";
 import { Listings } from "../models/Listings";
+import { Requests } from "../models/Requests";
 
 export class PostsService {
   public static async getAllPosts(): Promise<AppResponse<Posts>> {
@@ -61,6 +62,10 @@ export class PostsService {
     const url = Util.apiAuthUrl(`listings/get`);
     return await axios.get<Listings, AppResponse<Listings>>(url);
   }
+  public static async getAllRequests(): Promise<AppResponse<Requests>> {
+    const url = Util.apiAuthUrl(`requests/get`);
+    return await axios.get<Requests, AppResponse<Requests>>(url);
+  }
   public static async getOrganListings(): Promise<AppResponse<Listings>> {
     const url = Util.apiAuthUrl(`listings/organs/get`);
     return await axios.get<Listings, AppResponse<Listings>>(url);
@@ -103,5 +108,11 @@ export class PostsService {
   ): Promise<AppResponse<any>> {
     const url = Util.apiAuthUrl(`admin/post/delete/${postId}`);
     return await axios.post<Partial<any>, AppResponse<any>>(url, postId);
+  }
+  public static async deleteRequestByAdmin(
+    requestId: any
+  ): Promise<AppResponse<any>> {
+    const url = Util.apiAuthUrl(`admin/request/delete/${requestId}`);
+    return await axios.post<Partial<any>, AppResponse<any>>(url, requestId);
   }
 }

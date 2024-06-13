@@ -85,12 +85,24 @@ const SingleListing: React.FC<SingleListingProps> = ({ listing }) => {
     const data = {
       requestedListing: listing,
       requester: user,
-      donor:listingOwner
+      donor: listingOwner,
     };
 
     try {
       PostsService.sendRequest(data).then((res) => {
-        swal("Request Sent", "Your request has been sent", "success");
+        swal({
+          title: "Confirmation",
+          text: "Are you sure you want to send this request?",
+          icon: "warning",
+          buttons: ["Cancel", "Send"],
+        }).then((confirmed) => {
+          if (confirmed) {
+            PostsService.sendRequest(data).then((res) => {
+              console.log("Request Sent", res);
+              swal("Request Sent", "Your request has been sent", "success");
+            });
+          }
+        });
         console.log("Request Sent", res);
       });
     } catch (error) {
