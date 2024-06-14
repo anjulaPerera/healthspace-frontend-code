@@ -35,8 +35,8 @@ export class AdminService {
   }
 
   public static async deleteUser(userId: any): Promise<AppResponse<User>> {
-    const url = Util.apiAuthUrl(`delete/user/${userId}`);
-    return await axios.delete<User, AppResponse<User>>(url);
+    const url = Util.apiAuthUrl(`admin/user/delete/${userId}`);
+    return await axios.post<User, AppResponse<User>>(url);
   }
   public static async getUserById(userId: any): Promise<AppResponse<User>> {
     const url = Util.apiAuthUrl(`get/user/${userId}`);

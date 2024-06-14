@@ -29,6 +29,7 @@ const AdminUserManagement: React.FC = () => {
       if (willDelete) {
         try {
           const response = await AdminService.deleteUser(userId);
+          console.log("deleted user", response);
           if (response.success) {
             swal("User has been deleted!", {
               icon: "success",
