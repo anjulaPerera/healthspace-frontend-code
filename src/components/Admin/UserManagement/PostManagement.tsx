@@ -99,7 +99,7 @@ const PostManagement: React.FC = () => {
             return (
               <tr key={index}>
                 <td>{post.user?.name}</td>
-                <td>{post.user?.phone}</td>
+                <td>{post.user?.userType}</td>
                 <td>{post.content}</td>
                 <td>{formatDateTime(post.createdAt)}</td>
                 <td>
